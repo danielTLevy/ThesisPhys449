@@ -6,7 +6,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
-\label{sec:Motivation}
 
 Since the neutrino was first postulated by Wolfgang Pauli in 1930 \cite{neutrinoHistory}, investigation into their properties has presented a significant challenge for physics researchers, with a great impact on our understanding of the universe.
 Because neutrinos do not react via the electromagnetic force, they may only be detected via the weak force.
@@ -51,21 +50,21 @@ The next generation of neutrino experiments include DUNE and the Hyper-Kamiokand
 
 NA61/SHINE successful for T2K, had some inconsistencies, and did not hit a full range of beam momenta
 
- \section{The EMPHATIC Experiment}
+ \section{The \ac{EMPHATIC}}
 
-In order to constrain hadron production flux uncertainties, work is in progress for the EMPHATIC (Emulsion-based Measurement of the Production of Hadrons At a Test-beam In Chicagoland) experiment. EMPHATIC is a tabletop experiment designed to precisely measure hadron interactions resulting from a proton beam impinging on various targets. EMPHATIC is located at the Fermilab Test Beam Facility, and the proposed experimental setup is shown in Figure \ref{fig:EMPHATIC}.
+In order to constrain hadron production flux uncertainties, work is in progress for \ac{EMPHATIC} (Experiment Measuring the Production of Hadrons At a Test-beam In Chicagoland). \ac{EMPHATIC} is a tabletop experiment designed to precisely measure hadron interactions resulting from a proton beam impinging on various targets. \ac{EMPHATIC} is located at the Fermilab Test Beam Facility, and the proposed experimental setup is shown in Figure \ref{fig:EMPHATIC}.
 
 \begin{figure}[] 
 \centering
 \resizebox{0.8\textwidth}{!}{\includegraphics{./figs/EMPHATIC.png}}
-\caption{Top view of the proposed EMPHATIC setup, obtained with permission from the EMPHATIC group. The different detectors in the setup are shown in different colours. The Aerogel RICH detector, RPC ToF counter, and Permanent magnet are all currently being developed.}
+\caption[Top view of \ac{EMPHATIC}]{Top view of the proposed \ac{EMPHATIC} setup, obtained with permission from the \ac{EMPHATIC} group. The different detectors in the setup are shown in different colours. The Aerogel RICH detector, RPC ToF counter, and Permanent magnet are all currently being developed.}
 
 \label{fig:EMPHATIC}       % Give a unique label to the figure. 
 \end{figure}
 
-To obtain measurements for accelerator-based neutrino experiments, EMPHATIC will measure targets of graphite, aluminum, and iron. These targets correspond to the composition of the proposed targets, magnetic horns, and beamline components typically found in accelerator-based neutrino experiments. EMPHATIC will also measure targets composed of boron, boron nitride, and boron trioxide. Because the atmosphere is primarily composed of nitrogen and oxygen, measuring the latter two targets and removing the effects of the former will lead to estimation of hadron production in the interaction of cosmic rays in the atmosphere. 
+To obtain measurements for accelerator-based neutrino experiments, \ac{EMPHATIC} will measure targets of graphite, aluminum, and iron. These targets correspond to the composition of the proposed targets, magnetic horns, and beamline components typically found in accelerator-based neutrino experiments. \ac{EMPHATIC} will also measure targets composed of boron, boron nitride, and boron trioxide. Because the atmosphere is primarily composed of nitrogen and oxygen, measuring the latter two targets and removing the effects of the former will lead to estimation of hadron production in the interaction of cosmic rays in the atmosphere. 
 
-In order to measure the production of hadrons, EMPHATIC includes four different kinds of detectors. A set of silicon strip detectors (SSDs) register the position of each particle as they pass through. A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature depends on the momentum of the particle, so using SSDs downstream of the magnet allows for the measurement of particle momenta and trajectory. The particles then pass through an Aerogel Ring Imaging Cherenkov (ARICH) detector. As explained in Section \ref{sec:ARICH}, this detector can be used to determine a charged particle's velocity if its trajectory is known. If the velocity $\bf{v}$ and momentum $\bf{p}$ of a particle are known, then the its mass may be determined by the relativistic equation:
+In order to measure the production of hadrons, \ac{EMPHATIC} includes four different kinds of detectors. A set of silicon strip detectors (SSDs) register the position of each particle as they pass through. A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature depends on the momentum of the particle, so using SSDs downstream of the magnet allows for the measurement of particle momenta and trajectory. The particles then pass through an \ac{ARICH} detector. As explained in Section \ref{sec:ARICH}, this detector can be used to determine a charged particle's velocity if its trajectory is known. If the velocity $\bf{v}$ and momentum $\bf{p}$ of a particle are known, then the its mass may be determined by the relativistic equation:
 
 \begin{equation}
     \label{eq:relMass}
@@ -73,11 +72,11 @@ In order to measure the production of hadrons, EMPHATIC includes four different 
 \end{equation}
 where $c$ is the speed of light in a vacuum. This allows for the identification of each particle.
 
-After passing through the ARICH, particles will pass through a resistive plate chamber time-of-flight (RPC ToF) detector. This detector simply measures the time taken for a particle to travel some short distance, giving another measure of velocity. The RPC ToF has a lower resolution at the higher particle velocities measured by the ARICH detector, so these two detectors complement each other to provide a full measurement of velocities across a broad range.
+After passing through the \ac{ARICH}, particles will pass through a \ac{RPC ToF} detector. This detector simply measures the time taken for a particle to travel some short distance, giving another measure of velocity. The \ac{RPC ToF} has a lower resolution at the higher particle velocities measured by the \ac{ARICH} detector, so these two detectors complement each other to provide a full measurement of velocities across a broad range.
 
-After passing through the the RPC ToF, the particles strike a lead glass calorimeter, which measures the final particle energy. The lead glass calorimeter is useful for detecting any electrons or neutrons.
+After passing through the the \ac{RPC ToF}, the particles strike a lead glass calorimeter, which measures the final particle energy. The lead glass calorimeter is useful for detecting any electrons or neutrons.
 
-Currently, development is underway on the simulation and design of the ARICH detector. The ARICH detector should be able to accurately distinguish between the charged pions, charged kaons, protons, and electrons over a broad spectrum of momenta. In order to meet these goals, it is crucial that simulations be done to characterize the detector's performance and optimize the design. There are many elements of randomness in the propagation of particles through the detector, which necessitates the use of Monte Carlo simulations. 
+Currently, development is underway on the simulation and design of the \ac{ARICH} detector. The \ac{ARICH} detector should be able to accurately distinguish between the charged pions, charged kaons, protons, and electrons over a broad spectrum of momenta. In order to meet these goals, it is crucial that simulations be done to characterize the detector's performance and optimize the design. There are many elements of randomness in the propagation of particles through the detector, which necessitates the use of Monte Carlo simulations. 
 
 
 

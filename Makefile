@@ -1,4 +1,5 @@
           NAME1 = diss
+         OUTDIR = ./out/
        PRODUCT1 = $(NAME1).pdf
      TEXSOURCE1 = $(NAME1).tex \
 		    abstract.tex ack.tex glossary.tex intro.tex \
@@ -33,10 +34,12 @@ $(NAME1).bbl: $(TEXSOURCE1) $(BIBINPUTS) $(PDFFIGURES)
 #$(NAME2).bbl: $(TEXSOURCE2) $(BIBINPUTS) $(BUILTEPSFIGURES) $(BUILTPDFFIGURES)
 
 clean:
+	cd  $(OUTDIR) && \
 	$(RM) ${BUILTPDFFIGURES} $(NAME1).aux $(NAME1).dvi \
 	    $(NAME1).log $(NAME1).blg $(NAME1).bbl $(NAME1).out \
 	    $(NAME1).toc $(NAME1).lof $(NAME1).lot $(NAME1).brf \
-            *.aux
+            *.aux && \
+    cd ../
 
 # configuration issues
 .SUFFIXES: .tex .pdf .bbl
@@ -47,6 +50,7 @@ XELATEX=	xelatex
 LATEX=		latex
 BIBLATEX=	$(PDFLATEX)
 BIBTEX=		bibtex -min-crossref=1000
+LATEXFLAGS = --output-directory $(OUTDIR)
 RM=		rm -f
 MV=		mv
 CP=		cp -p
@@ -59,9 +63,9 @@ CP=		cp -p
 	done
 
 .tex.bbl: 
-	$(BIBLATEX) $(LATEXFLAGS) $<
+	$(BIBLATEX) $(LATEXFLAGS)  $<
 	$(BIBTEX) $*
 	$(RM) $*.aux $*.dvi $*.pdf
 
 doc.pdf: diss.pdf
-	$(CP) diss.pdf doc.pdf
+	$(CP) $(OUTDIR)diss.pdf doc.pdf
