@@ -7,13 +7,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
 
-Since the neutrino was first postulated by Wolfgang Pauli in 1930 \cite{neutrinoHistory}, investigation into their properties has presented a significant challenge for physics researchers, with a great impact on our understanding of the universe.
-Because neutrinos do not react via the electromagnetic force, they may only be detected via the weak force.
+Since the neutrino was first postulated by Wolfgang Pauli in 1930 \cite{neutrinoHistory}, neutrinos have proven to be an important probe into various fundamental properties of our universe.
+Because neutrinos do not react via the electromagnetic or strong force, they may only be detected via the weak force, presenting a significant challenge to any attempts to measure them.
+Over the past 60 years, physicists have built increasingly sophisticated and sensitive detectors to accurately measure the properties of these particles.
 
 There are three flavors of neutrinos: the electron neutrino $\nu_e$, the muon neutrino $\nu_\mu$, and the tau neutrino $\nu_\tau$.
+The flavor of the neutrino determines what interactions it might have: electron neutrinos  
 In 1998, the Super-Kamiokande detector in Japan observed clear evidence of neutrino oscillation: as neutrinos of one flavor travels over a large distance, it has some probability of later being observed as a neutrino of another generation.
 This implied that neutrinos have a nonzero mass, a result not predicted by the Standard Model.
-The theorized explanation for neutrino oscillation is that each neutrino flavor actually exists as some superposition of 3 different mass states - as a neutrino travels over large distances, the differences in phases of the mass states results in a shifting probability of detecting each neutrino flavor.
+The theorized explanation for neutrino oscillation is that each neutrino flavor actually exists as some superposition of 3 different mass states. As a neutrino travels over large distances, the differences in phases of the mass states results in a shifting probability of detecting each neutrino flavor.
 The relationship between mass and flavor states is governed by the following relation:
 
 \[
@@ -21,45 +23,64 @@ The relationship between mass and flavor states is governed by the following rel
 \nu_e \\ \nu_\mu \\ \nu_\tau
 \end{pmatrix}
 =
-U \begin{pmatrix}
+%U
+\begin{pmatrix}
+U_{e1} & U_{e1} & U_{e1} \\ 
+U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\
+U_{\tau 1} & U_{\tau 2} & U_{\tau 3}
+\end{pmatrix}
+\begin{pmatrix}
 \nu_1 \\ \nu_2 \\ \nu_3
 \end{pmatrix}
 \]
 
-Here, U is a $3 \times 3$ unitary matrix, known as the PMNS Matrix.
-The matrix can be characterized by 4 parameters: $\theta_{12}, \theta_{23}, \theta_{13}$, which are the "mixing angles", and $\delta_{CP}$, known as the CP-violating phase \cite{pdg2018}. 
+
+Here, U is a $3 \times 3$ unitary matrix, known as the Pontecorvo–Maki–Nakagawa–Sakata (PMNS) Matrix. The matrix can be characterized by 4 parameters: $\theta_{12}, \theta_{23}$, and $\theta_{13}$, which are the mixing angles, and $\delta_{CP}$, known as the CP-violating phase \cite{pdg2018}. The probability of a neutrino oscillating from one flavor to another is governed by the distance travelled, the mixing angles, and $\Delta m_{ij}^2$, the squared mass difference between neutrino states. 
+
 
 There are many open-ended questions regarding neutrinos.
-The parameters of the PMNS Matrix are poorly constrained.
-% TODO: SEPARATE OUT SENTENCES FOR EACH LINE AFTER THIS
-The neutrino masses are currently unknown, nor is it known why their masses are so small, nor are the mass orderings of the three states known.
-It is unknown whether neutrinos are their own anti-particles (i.e. whether the neutrino is a Majorana fermion), or if the antineutrino is a distinct particle (i.e. a Dirac fermion). It is uncertain whether the $\delta_{CP}$ is consistent with zero: If it is nonzero, then that may explain the asymmetry between the amount of matter and antimatter in the universe \cite{neutrinoCP}.
+The mixing angles of the PMNS matrix and the squared mass differences remain to be more accurately measured.
+Because only the differences in masses are known, the actual ordering and absolute values of the masses are unknown.
+It is unknown whether neutrinos are their own anti-particles (i.e. whether the neutrino is a Majorana fermion), or if the antineutrino is a distinct particle (i.e. a Dirac fermion).
+It is uncertain whether $\sin(\delta_{CP})$ is consistent with zero: If it is nonzero, then that may explain the asymmetry between the amount of matter and antimatter in the universe \cite{neutrinoCP}.
 
-The Super-Kamiokande experiment that first observed neutrino oscillations did so by observing atmospheric neutrinos: upon collision with atoms in the earth's atmosphere, energetic cosmic rays produce a shower of secondary particles such as pions and muons - some of these particles then produce neutrinos when they decay. Another source of neutrinos ideal for oscillation experiments are through particle accelerators. When an sufficiently energetic proton beam hits a target, the collision produces secondary particles: charged pions and kaons. The charged pions will decay in flight as follows:
-% \text{and} \
-$$ \pi^+ \rightarrow \mu^+ + \nu_\mu \quad \quad \mu^+ \rightarrow \bar{\nu}_e + \nu_\mu$$
+The next generation of neutrino experiments aim to answer all of these questions (and more) to a high degree of precision - they include the Deep Underground Neutrino Experiment (DUNE) \cite{duneDesign} and the Hyper-Kamiokande experiment \cite{hyperKDesign}.
+In both experiments, a large flux of neutrinos is generated with a particle accelerator hundreds of kilometers away from a large neutrino detector.
+When a sufficiently energetic particle beam hits a target, the collision produces secondary particles: mostly charged pions and kaons.
+Magnetic horns are used to direct these secondary particles in the direction of the distant detector.
+The charged pions will decay in flight as follows:
+
+$$ \pi^+ \rightarrow \mu^+ + \nu_\mu \quad   \text{and} \quad \mu^+ \rightarrow \bar{\nu}_e + \nu_\mu$$
 
 The charged kaons have several decay modes, but the most common are:
-% \text{and} 
 
-$$ K^+ \rightarrow \mu^+ + \nu_\mu \quad \quad K^+ \rightarrow \pi^+ + \pi^0$$
+$$ K^+ \rightarrow \mu^+ + \nu_\mu \text{,} \quad  K^+ \rightarrow \pi^+ + \pi^0  \text{,}\quad K^+ \rightarrow \pi^0 + e^+ + \nu_e$$
 
-with corresponding charge-conjugate decays for the $\pi^-$ and $K^-$. Due to the high momentum of the secondary particles, these decays then produce a directed beam of neutrinos. This allows them to travel the great distances to neutrino detectors necessary to observe oscillation.
+There are corresponding charge-conjugate decays for the $\pi^-$ and $K^-$. 
+As these secondary particles decay, a large number of resulting neutrinos are sent in the direction of the detector, where only a very small fraction will be detected.
 
-The next generation of neutrino experiments include DUNE and the Hyper-Kamiokande experiment. 
+These next-generation neutrino experiments have a far higher level of statistics than in neutrino experiments of the past, due to the massive size of the detectors.
+Because the error is no longer dominated by statistical error, decreasing any systematic error is increasingly important.
+In such experiments, the two major sources of systematic error arises from uncertainty in the neutrino-nucleus interaction, and uncertainty in calculations of the neutrino flux.
+The primary contribution to the uncertainty of neutrino flux lies in uncertainty in the hadron production \cite{hyperKDesign}.
 
-NA61/SHINE successful for T2K, had some inconsistencies, and did not hit a full range of beam momenta
+The NA61/SHINE experiment, located at CERN, has been very successful in measuring hadron production resulting from collisions of particles from the Super Proton Synchrotron onto various targets \cite{na61}.
+These measurements significantly reduced neutrino flux uncertainties in T2K, an ongoing accelerator-based neutrino oscillation experiment \cite{na61T2K}. 
+However, the beam momentum measured is constrained to between 13 and 160 GeV/c.
+This does not allow for the calculations of low-momentum hadron reinteractions: in addition to hadrons directly decaying into neutrinos, some hadrons may reinteract with the target, magnetic horns, or beamline of the detector, affecting the neutrino flux.
+Furthermore, some neutrino experiments aim to measure atmospheric neutrinos (neutrinos resulting from the decay of products of the reaction of cosmic rays with the atmosphere), and the NA61/SHINE data does not cover the associated lower-momentum hadron interactions.
 
- \section{The \ac{EMPHATIC}}
+ \subsection{The \ac{EMPHATIC}}
 
-In order to constrain hadron production flux uncertainties, work is in progress for \ac{EMPHATIC} (Experiment Measuring the Production of Hadrons At a Test-beam In Chicagoland).
-\ac{EMPHATIC} is a tabletop experiment designed to precisely measure hadron interactions resulting from a proton beam impinging on various targets. 
-\ac{EMPHATIC} is located at the Fermilab Test Beam Facility, and the proposed experimental setup is shown in Figure \ref{fig:EMPHATIC}.
+In order to constrain hadron production uncertainties, work is in progress for the EMPHATIC (Experiment Measuring the Production of Hadrons At a Test-beam In Chicagoland) experiment.
+EMPHATIC is a tabletop experiment designed to precisely measure hadron interactions resulting from a proton or pion beam impinging on various targets. 
+EMPHATIC is located at the Fermilab Test Beam Facility, and the proposed experimental setup is shown in Figure \ref{fig:EMPHATIC}.
+The Fermilab Test Beam can produce a beam with momenta ranging from 0.2-120 GeV, which complements the momenta measured by NA61/SHINE.
 
 \begin{figure}[] 
 \centering
-\resizebox{0.8\textwidth}{!}{\includegraphics{./figs/EMPHATIC.png}}
-\caption[Top view of \ac{EMPHATIC}]{Top view of the proposed \ac{EMPHATIC} setup, obtained with permission from the \ac{EMPHATIC} group. The different detectors in the setup are shown in different colours. The Aerogel RICH detector, RPC ToF counter, and Permanent magnet are all currently being developed.}
+\resizebox{0.75\textwidth}{!}{\includegraphics{./figs/EMPHATIC.png}}
+\caption{Top view of the proposed EMPHATIC setup, obtained with permission from the EMPHATIC group. The different detectors in the setup are shown in different colours. The Aerogel RICH detector, RPC ToF counter, and permanent magnet are all currently being developed.}
 
 \label{fig:EMPHATIC}       % Give a unique label to the figure. 
 \end{figure}
@@ -67,33 +88,28 @@ In order to constrain hadron production flux uncertainties, work is in progress 
 To obtain measurements for accelerator-based neutrino experiments, \ac{EMPHATIC} will measure targets of graphite, aluminum, and iron.
 These targets correspond to the composition of the proposed targets, magnetic horns, and beamline components typically found in accelerator-based neutrino experiments.
 \ac{EMPHATIC} will also measure targets composed of boron, boron nitride, and boron trioxide.
-Because the atmosphere is primarily composed of nitrogen and oxygen, measuring the latter two targets and removing the effects of the former will lead to estimation of hadron production in the interaction of cosmic rays in the atmosphere. 
+Because the atmosphere is primarily composed of nitrogen and oxygen, measuring the latter two targets and removing the effects of pure boron will lead to an estimation of hadron production arising from the interaction of cosmic rays in the atmosphere. 
 
-In order to measure the production of hadrons, \ac{EMPHATIC} includes four different kinds of detectors.
+\ac{EMPHATIC} includes four different kinds of detectors that serve to measure hadron production.
 A set of silicon strip detectors (SSDs) register the position of each particle as they pass through.
-A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature depends on the momentum of the particle, so using SSDs downstream of the magnet allows for the measurement of particle momenta and trajectory.
-The particles then pass through an \ac{ARICH} detector.
-As explained in Section \ref{sec:ARICH}, this detector can be used to determine a charged particle's velocity if its trajectory is known.
-If the velocity $\bf{v}$ and momentum $\bf{p}$ of a particle are known, then the its mass may be determined by the relativistic equation:
+A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature is proportional to momentum of the particle, so using multiple SSDs downstream of the magnet allows for the measurement of particle momenta and trajectories.
+The particles then pass through an Aerogel Ring Imaging Cherenkov (ARICH) detector.
+As explained in Section \ref{sec:ARICH}, this detector can be used to determine a charged particle's velocity if its trajectory is known. 
+If the velocity $\bf{v}$ and momentum $\bf{p}$ of a particle are known, then its mass may be determined.
+This allows for the identification of each particle. 
 
-\begin{equation}
-    \label{eq:relMass}
-    m = \frac{\bf{p}}{\bf{v}}\sqrt{1-\frac{v^2}{c^2}}
-\end{equation}
-where $c$ is the speed of light in a vacuum. This allows for the identification of each particle.
+After passing through the ARICH, particles will pass through a resistive plate chamber time-of-flight (RPC ToF) detector.
+This detector measures the time at which a particle passes through and compares this to an upstream measurement, giving another measure of velocity. 
+Unlike the ARICH detector, the ToF detector does not have the resolution sufficient to properly identify forward-angle high-momentum particles, but due to its greater angular coverage, it is able to identify lower-momentum particles.
+These two detectors complement each other to provide a full measurement of velocities across a broad range.
+Following this, particles strike a lead glass calorimeter, which measures the final particle energy.
+The lead glass calorimeter is useful for identifying electrons or neutrons.
 
-After passing through the \ac{ARICH}, particles will pass through a \ac{RPC ToF} detector.
-This detector simply measures the time taken for a particle to travel some short distance, giving another measure of velocity.
-The \ac{RPC ToF} has a lower resolution at the higher particle velocities measured by the \ac{ARICH} detector, so these two detectors complement each other to provide a full measurement of velocities across a broad range.
-
-After passing through the the \ac{RPC ToF}, the particles strike a lead glass calorimeter, which measures the final particle energy.
-The lead glass calorimeter is useful for detecting any electrons or neutrons.
-
-Currently, development is underway on the simulation and design of the \ac{ARICH} detector.
-The \ac{ARICH} detector should be able to accurately distinguish between the charged pions, charged kaons, protons, and electrons over a broad spectrum of momenta.
-In order to meet these goals, it is crucial that simulations be done to characterize the detector's performance and optimize the design.
-There are many elements of randomness in the propagation of particles through the detector, which necessitates the use of Monte Carlo simulations. 
-
+Currently, development is underway on the simulation and design of the ARICH detector.
+The ARICH detector should be able to accurately distinguish between the charged pions, charged kaons, and protons over a broad spectrum of momenta. 
+The method by which this particle identification is done is  outlined in Section \ref{sec:particleIdentification}, and requires efficient and realistic Monte Carlo simulations of particle propagation in the detector.
+Furthermore, it is crucial that simulations be done to characterize the detector's performance and optimize the design.
+For these reasons, the development of fast simulations of the ARICH detector is an important component of the design of the EMPHATIC experiment, which in turn is a crucial contribution to the future of neutrino investigations.
 
 
 

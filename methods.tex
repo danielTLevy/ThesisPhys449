@@ -8,16 +8,14 @@
 \label{sec:experiment}
 For my thesis project, I intend to create a fast simulation of charged particles travelling through the aerogel in the proposed \ac{EMPHATIC} \ac{ARICH} detector, and determine the distribution of resultant photons that strike the detector. 
 
-These simulations will be created using \textsc{root}: a scientific computing framework based off C++ and developed at CERN \cite{root}.
+The simulation is created using \textsc{ROOT}: a scientific computing framework based off C++ and developed at CERN \cite{root}.
 Our simulation will take in as input the velocity and $\theta$ and $\phi$ angles of the particle with respect to the axis of the beam.
-Using \textsc{root}, a vast number of particles may be simulated, whose velocities and trajectories are based off these inputs, but randomly distributed according to the resolution of the upstream particle trackers.
+Using \textsc{ROOT}, a vast number of particles may be simulated, whose velocities and trajectories are based off these inputs, but randomly distributed according to the resolution of the upstream particle trackers.
 The photons emitted by the particles travelling through the aerogel have a fixed angle $\theta$ with respect to the momentum of the particle, determined by Equation \ref{eq:cherenkovAngle}, but vary randomly with respect to their $\phi$ angle.
 The average number of photons emitted by each of these particles is determined by Equation \ref{eq:photonNumber}.
 These photons will then travel out of the aerogel and have some chance of striking the detector.
 The detector itself has some probability of detecting the hit, based off its efficiency. 
 
-Once a simulation has been created to handle this procedure, it will be verified against an already-existing simulation of the full detector configuration.
-The full simulation is handled with \textsc{Geant4}, a C++ based software toolkit designed for Monte Carlo simulations of particles travelling through complex detector geometry  \cite{geant4}.
 
 Once this simple simulation has been verified, the effects of photon scattering in the aerogel will be incorporated into the simulation.
 The transmittance of these photons through the aerogel has contributions from scattering and absorption effects, but the dominant contribution is from Rayleigh scattering \cite{aerogelRefraction}.
@@ -36,6 +34,9 @@ This probability distribution can then be used for particle identification.
 
 \label{fig:particleRings}       % Give a unique label to the figure. 
 \end{figure}
+
+Once a simulation has been created to handle this procedure, it will be verified against an already-existing simulation of the full detector configuration.
+The full simulation is handled with \textsc{Geant4}, a C++ based software toolkit designed for Monte Carlo simulations of particles travelling through complex detector geometry  \cite{geant4}.
 
 \section{Particle Identification}
 \label{sec:particleIdentification}

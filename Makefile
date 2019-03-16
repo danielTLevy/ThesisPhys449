@@ -34,12 +34,10 @@ $(NAME1).bbl: $(TEXSOURCE1) $(BIBINPUTS) $(PDFFIGURES)
 #$(NAME2).bbl: $(TEXSOURCE2) $(BIBINPUTS) $(BUILTEPSFIGURES) $(BUILTPDFFIGURES)
 
 clean:
-	cd  $(OUTDIR) && \
 	$(RM) ${BUILTPDFFIGURES} $(NAME1).aux $(NAME1).dvi \
 	    $(NAME1).log $(NAME1).blg $(NAME1).bbl $(NAME1).out \
 	    $(NAME1).toc $(NAME1).lof $(NAME1).lot $(NAME1).brf \
-            *.aux && \
-    cd ../
+            *.aux #&& \
 
 # configuration issues
 .SUFFIXES: .tex .pdf .bbl
@@ -50,7 +48,7 @@ XELATEX=	xelatex
 LATEX=		latex
 BIBLATEX=	$(PDFLATEX)
 BIBTEX=		bibtex -min-crossref=1000
-LATEXFLAGS = --output-directory $(OUTDIR)
+LATEXFLAGS = #--output-directory $(OUTDIR)
 RM=		rm -f
 MV=		mv
 CP=		cp -p
@@ -64,8 +62,10 @@ CP=		cp -p
 
 .tex.bbl: 
 	$(BIBLATEX) $(LATEXFLAGS)  $<
+	echo "**********************************************************************************************"
 	$(BIBTEX) $*
+	echo "**********************************************************************************************"
 	$(RM) $*.aux $*.dvi $*.pdf
 
 doc.pdf: diss.pdf
-	$(CP) $(OUTDIR)diss.pdf doc.pdf
+	$(CP) diss.pdf doc.pdf
