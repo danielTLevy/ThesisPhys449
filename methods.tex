@@ -4,18 +4,33 @@
 \chapter{Methods}
 \label{ch:Methods}
 
+The simulation of the ARICH detector was created using \textsc{ROOT}: an object-oriented scientific computing framework based off C++ and developed at CERN \cite{root}.
+\textsc{ROOT} is used for its ease of use, the high degree of organization and extensibility that comes from its object-oriented nature, and its high efficiency when compiled.
+\textsc{PROOF} is an extension to \textsc{ROOT} that allows for parallelization of the code. The simulation was created in steps of increasing added complexity, which are outlined in this chapter.
+
+
 \section{Initial Simulation}
 \label{sec:experiment}
-For my thesis project, I intend to create a fast simulation of charged particles travelling through the aerogel in the proposed \ac{EMPHATIC} \ac{ARICH} detector, and determine the distribution of resultant photons that strike the detector. 
+The first step in building the simulation was to generate particles, and have each of them generate photons at the appropriate angle as they travel through a single layer of aerogel. If we define the $z$ axis to be the downstream direction, then the inputs to the simulation are:
+\begin{itemize}
+\item The $x$ and $y$ position of a particle as it enters the aerogel.
+\item The error on the $x$ and $y$ position of the particle, corresponding to the position resolution of the upstream particle tracker.
+\item The $x$ and $y$ components of the unit vector representing the direction of the particle.
+\item The error on the $x$ and $y$ direction of the particle, corresponding to the direction resolution of the upstream particle tracker.
+\item The velocity $\beta$ of the particle.
+\end{itemize} 
+We generate 10,000 such particles whose positions and directions are randomly drawn from a Gaussian distribution with the specified mean values and errors. 
+Each of these particles generates a number of photons equal to the result of equation \ref{eq:photonNumber} multiplied by the distance the particle has to travel through the aerogel.
+These photons are randomly distributed along the path travelled by the particle. Their polar angle $\theta$ with respect to the direction of travel of the particle is given by equation \ref{eq:cherenkovAngle}, and their azimuthal angle is randomly drawn from between 0 and $2\pi$. 
+If we are given the direction vector of the particle, we can use a rotation matrix to get the resulting direction vectors for each of the photons it generates.
+This is given by \TODO{RODRIGUES' ROTATION FORMULA}
 
-The simulation is created using \textsc{ROOT}: a scientific computing framework based off C++ and developed at CERN \cite{root}.
-Our simulation will take in as input the velocity and $\theta$ and $\phi$ angles of the particle with respect to the axis of the beam.
-Using \textsc{ROOT}, a vast number of particles may be simulated, whose velocities and trajectories are based off these inputs, but randomly distributed according to the resolution of the upstream particle trackers.
-The photons emitted by the particles travelling through the aerogel have a fixed angle $\theta$ with respect to the momentum of the particle, determined by Equation \ref{eq:cherenkovAngle}, but vary randomly with respect to their $\phi$ angle.
-The average number of photons emitted by each of these particles is determined by Equation \ref{eq:photonNumber}.
-These photons will then travel out of the aerogel and have some chance of striking the detector.
-The detector itself has some probability of detecting the hit, based off its efficiency. 
+Each photon is generated with a corresponding wavelength, drawn randomly from \TODO{INTEGRATE FRANK TAMM}. 
+Given the point of generation and the direction vector of each photon, we can then determine where on the aerogel the photon will hit.
+We then apply efficiency corrections to see whether the photon would be registered as a hit: \TODO{EXPLAIN DETECTOR FILL EFFICIENCY}.
+We also know the quantum efficiency of the PMTs across different photon wavelengths, so we can throw out photons randomly by their wavelength.
 
+\section{Optical Effects}
 
 Once this simple simulation has been verified, the effects of photon scattering in the aerogel will be incorporated into the simulation.
 The transmittance of these photons through the aerogel has contributions from scattering and absorption effects, but the dominant contribution is from Rayleigh scattering \cite{aerogelRefraction}.
@@ -67,14 +82,7 @@ For convenience, we actually compute:
 
 We compute the log-likelihood of our data matching each of particle hypothesis, and choose that which minimizes the value.
 
-\section{Modifying the simulation}
-After having created the simulation, I will test its ability to adequately discriminate between different particles for a broad range of particle momenta and trajectories. Following these calculations, greater realism will be added to the simulation.
-The specific placement of PMTs in the photon detection array can be modelled to get a more accurate picture of the detector's angular resolution and efficiency.
-The effects of different detector configurations may be investigated in order to get the best possible particle discrimination. 
-
-A possible change to the detector configuration is the addition mirrors along the space between the aerogel radiator and the photon detectors.
-This would allow photons emitted at high angles to reflect off the mirrors and back onto the detector, increasing the total angular coverage of the detector. 
-The effects of this addition on the detector's particle discrimination ability can also be simulated.
+\section{Multiparticle events};
 
 
 
