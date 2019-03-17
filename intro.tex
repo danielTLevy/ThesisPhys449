@@ -66,13 +66,13 @@ The primary contribution to the uncertainty of neutrino flux lies in uncertainty
 
 The NA61/SHINE experiment, located at CERN, has been very successful in measuring hadron production resulting from collisions of particles from the Super Proton Synchrotron onto various targets \cite{na61}.
 These measurements significantly reduced neutrino flux uncertainties in T2K, an ongoing accelerator-based neutrino oscillation experiment \cite{na61T2K}. 
-However, the beam momentum measured is constrained to between 13 and 160 GeV/c.
+However, the momenta of the measured beams are constrained to between 13 and 160 GeV/c.
 This does not allow for the calculations of low-momentum hadron reinteractions: in addition to hadrons directly decaying into neutrinos, some hadrons may reinteract with the target, magnetic horns, or beamline of the detector, affecting the neutrino flux.
 Furthermore, some neutrino experiments aim to measure atmospheric neutrinos (neutrinos resulting from the decay of products of the reaction of cosmic rays with the atmosphere), and the NA61/SHINE data does not cover the associated lower-momentum hadron interactions.
 
  \subsection{The \ac{EMPHATIC}}
 
-In order to constrain hadron production uncertainties, work is in progress for the EMPHATIC (Experiment Measuring the Production of Hadrons At a Test-beam In Chicagoland) experiment.
+In order to constrain hadron production uncertainties, work is in progress for EMPHATIC (Experiment Measuring the Production of Hadrons At a Test-beam In Chicagoland).
 EMPHATIC is a tabletop experiment designed to precisely measure hadron interactions resulting from a proton or pion beam impinging on various targets. 
 EMPHATIC is located at the Fermilab Test Beam Facility, and the proposed experimental setup is shown in Figure \ref{fig:EMPHATIC}.
 The Fermilab Test Beam can produce a beam with momenta ranging from 0.2-120 GeV, which complements the momenta measured by NA61/SHINE.
@@ -98,19 +98,22 @@ As explained in Section \ref{sec:ARICH}, this detector can be used to determine 
 If the velocity $\bf{v}$ and momentum $\bf{p}$ of a particle are known, then its mass may be determined.
 This allows for the identification of each particle. 
 
-After passing through the ARICH, particles will pass through a resistive plate chamber time-of-flight (RPC ToF) detector.
+After passing through the ARICH detector, particles will pass through a resistive plate chamber time-of-flight (RPC ToF) detector.
 This detector measures the time at which a particle passes through and compares this to an upstream measurement, giving another measure of velocity. 
 Unlike the ARICH detector, the ToF detector does not have the resolution sufficient to properly identify forward-angle high-momentum particles, but due to its greater angular coverage, it is able to identify lower-momentum particles.
 These two detectors complement each other to provide a full measurement of velocities across a broad range.
 Following this, particles strike a lead glass calorimeter, which measures the final particle energy.
 The lead glass calorimeter is useful for identifying electrons or neutrons.
 
-Currently, development is underway on the simulation and design of the ARICH detector.
+\subsection{Overview of the project}
+Development is underway on the simulation and design of the ARICH detector for EMPHATIC.
 The ARICH detector should be able to accurately distinguish between the charged pions, charged kaons, and protons over a broad spectrum of momenta. 
-The method by which this particle identification is done is  outlined in Section \ref{sec:particleIdentification}, and requires efficient and realistic Monte Carlo simulations of particle propagation in the detector.
-Furthermore, it is crucial that simulations be done to characterize the detector's performance and optimize the design.
-For these reasons, the development of fast simulations of the ARICH detector is an important component of the design of the EMPHATIC experiment, which in turn is a crucial contribution to the future of neutrino investigations.
-
+We propose to use the ARICH detector conduct particle identification by using a likelihood approach. 
+With this approach, each experimental event is compared against several different Monte Carlo simulations of that event, each representing a different hypothesis for what particle or particles were involved.
+The simulation that best matches the experimental data is then chosen as the most likely candidate. This technique is fully described in Section \ref{sec:particleIdentification}. 
+While the ARICH detector may be simulated using GEANT4, there is a need for an even more efficient Monte Carlo simulation that can be run with different parameters for every single experimental event.
+In this project, I create such a fast simulation that incorporates the necessary physical processes while maintaining high efficiency.
+The outputs of this simulation are then compared to the full GEANT4 simulation, and we evaluate the ability of this method to discriminate between particle types in an experiment.
 
 
 \endinput
