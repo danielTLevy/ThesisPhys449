@@ -6,11 +6,11 @@
 
 \section{Cherenkov Radiation}
 \label{sec:cherenkov}
-While the speed of light in a vacuum is fixed as $c$, when light passes through a medium with a refractive index of $n$, it will travel at the velocity $\frac{c}{n}$.
+While the speed of light in a vacuum is a constant $c$, when light passes through a medium with a refractive index of $n$, it will travel at the velocity $\frac{c}{n}$.
 When a charged particle travels through a dielectric medium at a velocity greater than the speed of light in the medium, it will emit Cherenkov radiation \cite{cherenkov}.
 As the charged particle travels through the medium (known as a radiator), it will displace electrons, emitting photons radially at points along the particle's path.
 If we define the particle velocity to be $v_p$ and $\beta = v_p / c$, then in a time $t$, the particle will travel a distance $\beta ct$.
-In that same amount of time, the photons emitted in the radiator have to travel a distance $(c/n)t$.
+In that same amount of time, the photons emitted in the radiator will have travelled a distance $(c/n)t$.
 The geometry of this emission is shown in in Figure \ref{fig:cherenkov}.
 This creates a wavefront of light emitted obeying the following relation:
 \begin{equation}
@@ -52,12 +52,12 @@ Here, $\alpha$ is the fine structure constant ($\approx \frac{1}{137}$).
 \section{Aerogel Ring Imaging Cherenkov Detectors}
 \label{sec:ARICH}
 The relationship between particle velocity through a radiator and photon angle of emission (Equation \ref{eq:cherenkovAngle}) can be exploited for particle identification.
-An \ac{ARICH} detector consists of a silica aerogel radiator, and an array of \ac{PMT}s, which can detect the Cherenkov radiation.
+An \ac{ARICH} detector consists of a silica aerogel radiator, and an array of \ac{PMT}s, which can detect Cherenkov radiation of charged particles passing through the aerogel.
 Silica aerogel is a substance made of a network of silica (SiO$_2$) clusters interspersed with nanopores of air \cite{aerogelRefraction}.
 During production, the refractive index of aerogel can be precisely tuned \cite{aerogelRefraction}, and the wavelength-dependency of the refractive index is understood \cite{aerogelWavelength}. 
 
 High-velocity charged particles produced in the collision of the proton beam with a target will emit cones of Cherenkov radiation as they travel through the aerogel, leading to an elliptically shaped set of detected photons.
-With a known separation distance between the radiator and the detector, the angle of emission $\theta$ of a photon may be determined, which yields the velocity of the particle.
+With a known separation distance between the radiator and the detector, the angle of emission $\theta$ of a photon may be used to determine the velocity of the particle.
 By averaging over several photons emitted by a single particle, we can increase our angular resolution.
 With a thicker slab of aerogel, a charged particle travels a greater distance and is likely to emit a greater number of photons.
 However, this means that the point of emission of the photon can vary more, leading to lower angular resolution.
@@ -71,7 +71,7 @@ Their quantum efficiencies depend on the wavelength of the incident light, and a
 \label{sec:optics}
 A number of optical effects complicate the distributions of photons emitted in an ARICH detector.
 As photons travel through the layers of aerogel, they have some probability of interacting with the medium, either via absorption, or via scattering.
-Because the aerogel  pockets of air included in the aerogel are smaller than the wavelength of visible light, the dominant effect is Rayleigh scattering \cite{aerogelRefraction}. 
+Because the pockets of air included in the aerogel are smaller than the wavelength of visible light, the dominant effect is Rayleigh scattering \cite{aerogelRefraction}. 
 The probability that a photon  undergoes Rayleigh scattering is proportional to $\lambda^{-4}$, where $\lambda$ is the wavelength of the light.
 The angular distribution of scattered photons is proportional to $1 + \cos^2(\theta)$ \cite{rayleigh}.
 

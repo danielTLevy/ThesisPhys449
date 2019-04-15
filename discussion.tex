@@ -3,14 +3,33 @@
 
 \chapter{Discussion}
 \label{ch:Discussion}
-In this section, I will talk about the viability of this likelihood approach for use in particle separation - under what circumstances does it work well, what are its limitations, how we could improve those limitiations. At this time, I do not yet have enough results to say what these are. I also do not know how much I will be able to complete - if I do not manage to implement some improvement to the simulation, I may add it here. Possible things to talk about:
+In this section, I will talk about the viability of this likelihood approach for use in particle separation - under what circumstances does it work well, what are its limitations, how we could improve those limitations. At this time, I do not yet have enough results to say what these are. I also do not know how much I will be able to complete - if I do not manage to implement some improvement to the simulation, I may add it here. Possible things to talk about:
 \begin{itemize}
 \item The effectiveness at higher angles. If I find that this method is ineffective at distinguishing particles at high angles, I could talk about recommendations of what to do.
 \item I could talk about how the method becomes exponentially slower the more particles are involved, as the fit becomes multidimensional.
 \item If I do not have time to parallelize the code, I could talk about how I would do that, and what benefits that would give.
 \item If the code is not acceptably fast even with parallelization, I could talk about alternate approaches: for example, precomputing different photon distributions and interpolating them.
 \end{itemize}
-\endinput
+
+\section{High Angles}
+As seen in Figure \TODO{SEP AS FUNC OF ANGLE}, we lose the ability to distinguish between different particles at sufficiently high angles, as the photon rings begin to fall out of the angular acceptance of the photon detector.
+One proposed solution to this issue is the addition mirrors to the sides of the detector, which would reflect high-angle photons onto the PMT array. 
+While this would allow us to identify high-angle particles, in all cases it would increase the background from Rayleigh-scatter photons, as we typically see a broad angular range of scattered photons.
+
+The simulation has an added option to include these mirrors.
+Photons that would ordinarily exit out of the sides of a defined 30 by 30 cm region get reflected back in.
+Two examples of the resulting photon distributions for particles at high angles are shown in Figure \TODO{Ref figure of mirrors}.
+It can be seen in the second example because of the high angle, the difference in refractive indices between the two aerogel layers causes splitting in the photon ring, which was not apparent at lower angles.
+There is also a noticeably higher background of scattered photons compared to without the mirrors included.
+
+An alternative method to increase angular coverage would be to space out the PMTs
+
+While this has been fully implemented, it remains to be seen how this affects our ability to separate particles. 
+
+\section{Further options for optimization}
+
+
+\endinput 
 
 Any text after an \endinput is ignored.
 You could put scraps here or things in progress.
