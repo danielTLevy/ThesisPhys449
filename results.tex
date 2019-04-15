@@ -6,8 +6,14 @@
 \section{Particle Identification}
 \label{sec:particleIdentification}
 In order to identify particles using the \ac{ARICH} detector, a particle likelihood method is used \cite{richImpact, belleArich}.
-For this method, we take the measured momentum of the particle, and use Equation \TODO{Include relativistic equation for mass / momentum / velocity here } to determine the expected velocity for different candidate particles masses.
-The candidate particles of interest for this study are protons, pions, and kaons.
+For this method, we take the measured momentum of the particle, and determined the expected velocity for different candidate particles masses. This is done using the following equation, assuming units where $c = 1$:
+
+\begin{equation}
+\label{eq:relMass}
+ \beta = \sqrt{\frac{1}{1 +m^2 / p^2}}
+\end{equation}
+
+The candidate particles of interest for this study are protons, with a mass of 0.938 GeV/c$^2$, pions, with a mass of 0.140 GeV/c$^2$, and kaons, with a mass of 0.494 GeV/c$^2$. \TODO{cite}
 For each velocity hypothesis, we run 10,000 simulations of particles moving at that velocity, with the same measured initial trajectory as input, and get the distribution of the resulting photons.
 For each pixel of the detector, this procedure will give a value $\lambda_i(\beta)$, equal to the expected number of photons striking pixel $i$ in the detector due to a particle of velocity $\beta$. 
 
@@ -23,21 +29,24 @@ By multiplying the probabilities of getting the observed result in each pixel $i
 
 $$L_\beta = \prod_{i}P_i(N_i; \beta)$$
 
-Because the log function is montonic, instead of maximizing the likelihood function, we can instead minimize the negative log-likelihood, which is easier to compute:
+Because of the floating point errors that would inevitably be introduced by multiplying hundreds of numbers together, we instead can look at twice the negative log of the likelihood:
+
 \begin{equation}
     \label{eq:loglikelihood}
     -2\ln(L_\beta) = -2\sum_i \ln(P_i(N_i; \beta))
 \end{equation}
 
-\TODO{Due to the relatively high error associated with the measurement of the particle momenta, if I find that this method is not entirely sufficient at identifying particles then I will enhance the technique by scanning over different momentum hypotheses. This has not yet been implemented}
-
-\section{Multi-particle events}
-\TODO{In this section, I will  talk about multi-particle events. It is often the case that the photons from several different particles will be detected at the same time. The resulting photon distributions cannot necessarily be disentangled, so I will have to look at how to fit both particles at once. This has not yet been implemented.}
-
+Because the log function is montonic, maximizing the likelihood function is equivalent to minimizing the negative loglikelihood.
+%One potential downside to using the negative loglikelihood is that if some bin has a computed value $\lambda$ of 0, then the likelihood of the distribution becomes $-\infinity$. 
+%Because this may lead to numerical problems, we may apply some additive smoothing.
+The negative loglikelihood of an experimental event can be calculated for each particle hypothesis, and we can predict that each event was caused by the particle that minimizes the negative loglikelihood.
 
 \section{Particle Separation}
-In this section, I will talk about how well the likelihood approach using my simulation differentiates between different particles. 
-Charged pions have a mass of  0.140 GeV, charged kaons have a mass of 0.494 GeV, and protons have a mass of 0.938 GeV.
+With this approach to particle identification in place, it is necessary to establish the effectiveness of the technique under different conditions.
+
+Figure \TODO{include plot of momentum vs cherenkov angle, à la Winnipeg Aerogel Test Stand talk} shows that at increasing momenta, it becomes increasingly hard to distinguish between particles, as their velocities and therefore their Cherenkov angles in a given aerogel converge to the same value.
+It is particularly hard to distinguish between 
+
 Because of this, it is particularly hard to distinguish between pions and kaons, but easier to distinguish protons from kaons, and easier still to distinguish protons from pions.
 
 Let's suppose we want to see how well this likelihood approach works on a particle that is 7 GeV and measured to be at the origin and travelling directly in the z-direction.
@@ -47,7 +56,7 @@ To check the certainty with which we can determine whether this is a pion or kao
 \item Generate 10,000 pions with these values in Geant4, project the generated photons onto a detector, apply efficiency corrections, and store the resulting histogram of detected photon hits for each pion. 
 \item Do the same, but with kaons instead of pions
 \item Given the particle initial position, initial direction, and momentum, we use my simulation to generate two photon probability distribution histograms, corresponding to pions or kaons
-\item For each event simulated in Geant4, we compute the log likelihood of the histogram with respect to each of the 3 photon probability distribution functions.
+\item For each event simulated in Geant4, we compute the log likelihood of the histogram with respect to each of the three photon probability distribution functions.
 \item For each true particle type, we plot a histogram of the log of the ratio of likelihoods between the two hypotheses.
 This is just the differences between the log-likelihoods of the two hypotheses.
 \item We look at the separation between the distributions: this is equal to the difference in means between the distributions, divided by the RMS of each distribution added in quadrature
@@ -68,11 +77,44 @@ The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two d
 \label{fig:kaonprotonsep} 
 \end{figure}
 
-\TODO{While I have examined these results for 7 GeV pions, kaons, and protons, I still must check the separation for: \\
-- Different initial particle directions and positions \\
-- Different momenta \\
-- Multi-particle events
-}
+\subsection{Momenta}
+A script was written to automate this procedure over a range of different initial particle directions and particle momenta. 
+Figure \TODO{} shows the  separation between likelihood distributions for each particle-particle pair over a range of momenta from 6 GeV/c to 14 GeV/c, with particles travelling directly down the $z$-axis.
+Rather than looking at the particle separations, Figure \TODO{} shows the misidentification rates: the percentage of the time the particle identity that yielded the minimum negative log-likelihood among the candidate particles was not the true particle.
+
+\begin{figure}[]
+\centering
+\resizebox{0.9\textwidth}{!}{\includegraphics{./figs/centeredSeps.pdf}}
+\caption[\TODO{}]{!}
+\label{fig:centeredErrs} 
+\end{figure}
+
+\begin{figure}[]
+\centering
+\resizebox{0.9\textwidth}{!}{\includegraphics{./figs/centeredMisidentification.pdf}}
+\caption[\TODO{}]{!}
+\end{figure}
+
+We see that as momentum increases, we steadily become worse and worse at distinguishing between pions and kaons - we get a separation of $2 \sigma$ past momenta of 7 GeV/c, and at a momentum of 14 GeV/c, we are no better than luck at determining whether a particle is a kaon or pion.
+We see that it does not become difficult to distinguish between a proton and a pion or kaon up until we reach approximately 12 or 13 GeV/c. 
+
+\subsection{Angles}
+When particles enter the aerogel at nonzero angles, a number of intractable effects affect the resulting photon distribution. 
+Particles travel further through the aerogel at higher angles, photons refract differently, and the resulting Cherenkov cones may become smeared out over more PMT pixels when the particle enters at higher angles. 
+To evaluate the effectiveness of this likelihood approach across different angles, the procedure described in the preceding section was followed over 5 angular bins ranging from 0 to 0.4 radians.
+The resulting particle separations are shown in Figure \ref{TODO}.
+It is clear that as the angle of the incident particle increases, we become better able to separate out our particles from one another up until a certain point.
+Past 0.35 radians, we see that our ability to distinguish particles actually decreases.
+ 
+
+\begin{figure}[]
+\centering
+\resizebox{0.9\textwidth}{!}{\includegraphics{./figs/xAngleSeps.pdf}}
+\caption[\TODO{}]{!}
+\end{figure}
+
+\section{Multi-particle events}
+\TODO{In this section, I will  talk about multi-particle events. It is often the case that the photons from several different particles will be detected at the same time. The resulting photon distributions cannot necessarily be disentangled, so I will have to look at how to fit both particles at once. This has not yet been implemented.}
 
 \endinput
 
