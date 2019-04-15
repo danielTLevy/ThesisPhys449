@@ -1,10 +1,10 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Results}
+\chapter{Particle Identification}
 \label{ch:Results}
-\section{Particle Identification}
-\label{sec:particleIdentification}
+%\section{Particle Identification}
+%\label{sec:particleIdentification}
 In order to identify particles using the \ac{ARICH} detector, a particle likelihood method is used \cite{richImpact, belleArich}.
 For this method, we take the measured momentum of the particle, and determined the expected velocity for different candidate particles masses. This is done using the following equation, assuming units where $c = 1$:
 
@@ -32,14 +32,14 @@ $$L_\beta = \prod_{i}P_i(N_i; \beta)$$
 Because of the floating point errors that would inevitably be introduced by multiplying hundreds of numbers together, we instead can look at twice the negative log of the likelihood:
 
 \begin{equation}
-    \label{eq:loglikelihood}
+    \label{eq:log-likelihood}
     -2\ln(L_\beta) = -2\sum_i \ln(P_i(N_i; \beta))
 \end{equation}
 
-Because the log function is montonic, maximizing the likelihood function is equivalent to minimizing the negative loglikelihood.
-%One potential downside to using the negative loglikelihood is that if some bin has a computed value $\lambda$ of 0, then the likelihood of the distribution becomes $-\infinity$. 
+Because the log function is montonic, maximizing the likelihood function is equivalent to minimizing the negative log-likelihood.
+%One potential downside to using the negative log-likelihood is that if some bin has a computed value $\lambda$ of 0, then the likelihood of the distribution becomes $-\infinity$. 
 %Because this may lead to numerical problems, we may apply some additive smoothing.
-The negative loglikelihood of an experimental event can be calculated for each particle hypothesis, and we can predict that each event was caused by the particle that minimizes the negative loglikelihood.
+The negative log-likelihood of an experimental event can be calculated for each particle hypothesis, and we can predict that each event was caused by the particle that minimizes the negative log-likelihood.
 
 \section{Particle Separation}
 With this approach to particle identification in place, it is necessary to establish the effectiveness of the technique under different conditions.
@@ -114,7 +114,25 @@ Past 0.35 radians, we see that our ability to distinguish particles actually dec
 \end{figure}
 
 \section{Multi-particle events}
-\TODO{In this section, I will  talk about multi-particle events. It is often the case that the photons from several different particles will be detected at the same time. The resulting photon distributions cannot necessarily be disentangled, so I will have to look at how to fit both particles at once. This has not yet been implemented.}
+While so far only single-photon ring events had been evaluated, it is often the case that the photons from several different particles will be detected at the same time in the ARICH detector.
+It is necessary that this technique is able to separate out those events as well. 
+
+To do this, the simulation was modified to take in a vector of different particle momenta, positions, and directions, rather than just one.
+Because the photon rings from each particle may overlap with one another and cannot necessarily be disentangled, every possible combination of particle hypotheses must be simulated and compared to the event data in order to concurrently fit all particles.
+Because the photon probability distribution functions for each particle are independent, each particle is independently simulated for each particle hypothesis, and the resulting photon histograms are saved.
+Next, for every possible combination of these particle hypotheses, we sum together the corresponding individual-particle photon distribution histograms and compare to the event data to calculate a log-likelihood.
+In total, for $n$ detected particles and $p$ possible particle hypotheses, we must simulate $p \times n$ photon distribution functions, do $p^n$  log-likelihood comparisons with our event data, and select the combination with the minimum negative log-likelihood from these $p^n$ options. 
+
+This process done here \TODO{Multiparticle: would be nice to be able to quickly see how well our log-likelihood works}.
+
+This particular example was created using random throws of 3 particles with momenta drawn from a Gaussian with mean $\mu$ and standard deviation $\sigma$, and with directions thrown from a Gaussian with mean $\mu$ and standard deviation $\sigma$, a choice of inputs that is entirely arbitrary.
+In order to get a useful measure of our ability to measure multi-particle events, it is necessary that we better understand what these events might look like in a real experiment.
+
+To find out what these multi-particle events may look like, a simple Geant4 simulation of EMPHATIC was used.
+As an example of a typical experimental result, a beam of 10,000 protons with a momentum of 30 GeV/c was simulated.
+The protons were generated directly upstream of a 5.0 cm $\times$ 5.0 cm, 2.0 cm thick carbon target, and were directed along the $z$-axis of the experiment.
+Geant4 libraries were included to 
+
 
 \endinput
 
