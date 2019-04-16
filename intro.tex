@@ -80,9 +80,8 @@ The Fermilab Test Beam can produce a beam with momenta ranging from 0.2-120 GeV,
 \begin{figure}[] 
 \centering
 \resizebox{0.75\textwidth}{!}{\includegraphics{./figs/EMPHATIC.png}}
-\caption{Top view of the proposed EMPHATIC setup, obtained with permission from the EMPHATIC group. The different detectors in the setup are shown in different colours. The Aerogel RICH detector, RPC ToF counter, and permanent magnet are all currently being developed.}
-
-\label{fig:EMPHATIC}       % Give a unique label to the figure. 
+\caption{Top view of the proposed EMPHATIC setup, obtained with permission from the EMPHATIC group. The different detectors in the setup are shown in different colours.}
+\label{fig:EMPHATIC} 
 \end{figure}
 
 To obtain measurements for accelerator-based neutrino experiments, \ac{EMPHATIC} will measure targets of graphite, aluminum, and iron.
@@ -95,7 +94,7 @@ A set of silicon strip detectors (SSDs) register the position of each particle a
 A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature is proportional to momentum of the particle, so using multiple SSDs downstream of the magnet allows for the measurement of particle momenta and trajectories.
 The particles then pass through an Aerogel Ring Imaging Cherenkov (ARICH) detector.
 As explained in Section \ref{sec:ARICH}, this detector can be used to determine a charged particle's velocity if its trajectory is known. 
-If the velocity $\bf{v}$ and momentum $\bf{p}$ of a particle are known, then its mass may be determined.
+If the velocity and momentum of a particle are known, then its mass may be determined.
 This allows for the identification of each particle. 
 
 After passing through the ARICH detector, particles will pass through a resistive plate chamber time-of-flight (RPC ToF) detector.
@@ -106,16 +105,25 @@ Following this, particles strike a lead glass calorimeter, which measures the fi
 The lead glass calorimeter is useful for identifying electrons or neutrons.
 
 \section{Overview of the project}
-Development is underway on the simulation and design of the ARICH detector for EMPHATIC. The ARICH detector should be able to accurately distinguish between the charged pions, charged kaons, and protons over a broad spectrum of momenta.
+Development is underway on the simulation and design of the ARICH detector for EMPHATIC.
+The ARICH detector should be able to accurately distinguish between charged pions, charged kaons, and protons over a broad spectrum of momenta.
 We propose to use the ARICH detector to conduct particle identification by using a likelihood approach. 
 With this approach, photon measurements from each experimental event is compared against several different Monte Carlo simulations of that event, each representing a different hypothesis for what particle or particles were involved.
-The particle or particles that produced the simulated distribution that best matches the experimental data is then chosen as the most likely candidate. This technique is fully described in Section \ref{sec:particleIdentification}. 
+The particle or particles that produced the simulated distribution that best matches the experimental data is then chosen as the most likely candidate.
+This technique is fully described in Chapter \ref{sec:particleIdentification}. 
 
-Concurrent work is underway for a full end-to-end Monte Carlo simulation of the EMPHATIC experimental setup. This simulation is created using Geant4, a platform designed for Monte Carlo simulations of particles passing through matter \cite{geant4}. This simulation will contain information on the placement of all detector components and their materials, and models the physical interactions of each particle running through the experiment, and the shower of secondary particles produced. While the Geant4 simulation should give accurate results for the distribution of optical photons for different particle hypotheses, it is relatively slow to perform for each particle. Using this likelihood approach to particle identification, we would be required to run several different simulations per experimental event. The Geant4 simulation is therefore too slow to be run as a tool for particle identification, necessitating the need for a more efficient fast simulation of just the optical processes in the ARICH detector. 
+Concurrent work is underway for a full end-to-end Monte Carlo simulation of the EMPHATIC experimental setup.
+This simulation is created using Geant4, a platform designed for Monte Carlo simulations of particles passing through matter \cite{geant4}.
+This simulation will contain information on the placement of all detector components and their materials, and models the physical interactions of each particle running through the experiment, and the shower of secondary particles produced.
+While the Geant4 simulation should give accurate results for the distribution of optical photons for different particle hypotheses, it is relatively slow to perform for each particle.
+Using this likelihood approach to particle identification, we would be required to run several different simulations per experimental event.
+The Geant4 simulation is therefore too slow to be run as a tool for particle identification, necessitating the need for a more efficient fast simulation of just the optical processes in the ARICH detector. 
 
-In this project, I create such a fast simulation that incorporates the necessary physical processes while maintaining high efficiency.
-The outputs of this simulation are then compared to the full Geant4 simulation. Finally, the particle identification performance of this technique is evaluated under several different conditions.
-
+In this project, I created such a fast simulation that incorporates the necessary physical processes while maintaining high efficiency.
+%The outputs of this simulation are then compared to the full Geant4 simulation.
+The simulation is described in Chapter \ref{ch:Methods}.
+Following this, the particle identification performance of this technique was evaluated under several different conditions.
+The particle identification and its evaluation are described in Chapter \ref{ch:Results}.
 
 \endinput
 
