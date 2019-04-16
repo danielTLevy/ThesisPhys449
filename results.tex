@@ -6,28 +6,37 @@
 %\section{Particle Identification}
 %\label{sec:particleIdentification}
 In order to identify particles using the \ac{ARICH} detector, a particle likelihood method is used \cite{richImpact, belleArich}.
-For this method, we take the measured momentum of the particle, and determined the expected velocity for different candidate particles masses. This is done using the following equation, assuming units where $c = 1$:
+For this method, we take the measured momentum of the particle, and determined the expected velocity for different candidate particles masses.
+The candidate particles of interest for this study are protons, with a mass of 0.938 GeV/c$^2$, pions, with a mass of 0.140 GeV/c$^2$, and kaons, with a mass of 0.494 GeV/c$^2$\TODO{cite pdg}.
+To calculate the velocity, we then use the following relativistic equation, assuming units where $c = 1$:
 
 \begin{equation}
 \label{eq:relMass}
  \beta = \sqrt{\frac{1}{1 +m^2 / p^2}}
 \end{equation}
 
-The candidate particles of interest for this study are protons, with a mass of 0.938 GeV/c$^2$, pions, with a mass of 0.140 GeV/c$^2$, and kaons, with a mass of 0.494 GeV/c$^2$. \TODO{cite}
-For each velocity hypothesis, we run 10,000 simulations of particles moving at that velocity, with the same measured initial trajectory as input, and get the distribution of the resulting photons.
+
+For each velocity hypothesis, we run 10,000 simulations of particles moving at that velocity, with the same measured initial trajectory as the input event data, and get the distribution of the resulting photons.
 For each pixel of the detector, this procedure will give a value $\lambda_i(\beta)$, equal to the expected number of photons striking pixel $i$ in the detector due to a particle of velocity $\beta$. 
 
-For a given experimental event, we will detect $N_i$ photons in each pixel $i$.
+For a given event, we will detect $N_i$ photons in each pixel $i$.
 In reality, the PMTs are only capable of registering whether or not a photon has been detected - if multiple photons strike a single pixel in a very short amount of time, it will not be able to distinguish the number detected, so we just know if $N_i = 0$ or $N_i > 0$.
 
-If we assume that the number of photons striking detectable by a PMT pixel is given by a Poisson distribution, then the probability that zero photons strike pixel $i$ is given by:
-$$ P_i(N_i=0; \beta) = e^{-\lambda_i(\beta)} $$
+If we assume that the number of photons detected by a PMT pixel is given by a Poisson distribution, then the probability that zero photons strike pixel $i$ is given by:
+\begin{equation}
+P_i(N_i=0; \beta) = e^{-\lambda_i(\beta)}
+\end{equation}
+
  The probability that one or more photons strike pixel $i$ must then be:
-$$ P_i(N_i>1; \beta) = 1 - e^{-\lambda_i(\beta)} $$
+\begin{equation}
+P_i(N_i>1; \beta) = 1 - e^{-\lambda_i(\beta)}
+\end{equation}
 
 By multiplying the probabilities of getting the observed result in each pixel $i$ of the detector, we calculate the likelihood for that value of $\beta$:
 
-$$L_\beta = \prod_{i}P_i(N_i; \beta)$$
+\begin{equation}
+L_\beta = \prod_{i}P_i(N_i; \beta)
+\end{equation}
 
 Because of the floating point errors that would inevitably be introduced by multiplying hundreds of numbers together, we instead can look at twice the negative log of the likelihood:
 
@@ -39,15 +48,20 @@ Because of the floating point errors that would inevitably be introduced by mult
 Because the log function is montonic, maximizing the likelihood function is equivalent to minimizing the negative log-likelihood.
 %One potential downside to using the negative log-likelihood is that if some bin has a computed value $\lambda$ of 0, then the likelihood of the distribution becomes $-\infinity$. 
 %Because this may lead to numerical problems, we may apply some additive smoothing.
-The negative log-likelihood of an experimental event can be calculated for each particle hypothesis, and we can predict that each event was caused by the particle that minimizes the negative log-likelihood.
+For each event, the negative log-likelihood can be calculated for each particle hypothesis, and we can predict that each event was caused by the particle that minimizes the negative log-likelihood.
 
 \section{Particle Separation}
 With this approach to particle identification in place, it is necessary to establish the effectiveness of the technique under different conditions.
 
-Figure \TODO{include plot of momentum vs cherenkov angle, à la Winnipeg Aerogel Test Stand talk} shows that at increasing momenta, it becomes increasingly hard to distinguish between particles, as their velocities and therefore their Cherenkov angles in a given aerogel converge to the same value.
-It is particularly hard to distinguish between 
+Figure \ref{fig:changles} shows that at increasing momenta, it becomes increasingly hard to distinguish between particles, as their velocities and therefore their Cherenkov angles in a given aerogel converge to the same value.
+It is particularly hard to distinguish between pions and kaons, but easier to distinguish protons from kaons, and easier still to distinguish protons from pions.
 
-Because of this, it is particularly hard to distinguish between pions and kaons, but easier to distinguish protons from kaons, and easier still to distinguish protons from pions.
+\begin{figure}[]
+\centering
+\resizebox{0.9\textwidth}{!}{\includegraphics{./figs/changles2.pdf}}
+\caption[Predicted Cherenkov angles of pions, kaons, and protons over a range of momenta.]{Predicted Cherenkov angles of pions, kaons, and protons over a range of momenta.}
+\label{fig:changles}
+\end{figure}
 
 Let's suppose we want to see how well this likelihood approach works on a particle that is 7 GeV and measured to be at the origin and travelling directly in the z-direction.
 To check the certainty with which we can determine whether this is a pion or kaon, we would follow this approach:
@@ -55,14 +69,14 @@ To check the certainty with which we can determine whether this is a pion or kao
 \begin{enumerate}
 \item Generate 10,000 pions with these values in Geant4, project the generated photons onto a detector, apply efficiency corrections, and store the resulting histogram of detected photon hits for each pion. 
 \item Do the same, but with kaons instead of pions
-\item Given the particle initial position, initial direction, and momentum, we use my simulation to generate two photon probability distribution histograms, corresponding to pions or kaons
-\item For each event simulated in Geant4, we compute the log likelihood of the histogram with respect to each of the three photon probability distribution functions.
+\item Given the particle initial position, initial direction, and momentum, we use the fast ARICH simulation to generate two photon probability distribution histograms, corresponding to pions or kaons
+\item For each event simulated in Geant4, we compute the negative log-likelihood of the event histogram with respect to the photon probability distribution functions of each particle hypothesis.
 \item For each true particle type, we plot a histogram of the log of the ratio of likelihoods between the two hypotheses.
-This is just the differences between the log-likelihoods of the two hypotheses.
-\item We look at the separation between the distributions: this is equal to the difference in means between the distributions, divided by the RMS of each distribution added in quadrature
+This is just the differences between the negative log-likelihoods of the two hypotheses.
+\item We look at the separation between the distributions: this is equal to the difference in means between the distributions, divided by the root mean square of each distribution added in quadrature
 \end{enumerate}
 
-The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two distributions are separated by a distance of $2.4 \sigma$ - the significant overlap between the two distribution indicates that there is a relatively high chance of misidentification. Applying the same procedure to verify our separation between kaons and protons gives the results shown in Figure \ref{fig:kaonprotonsep}. Here we see that the two distributions do not significantly overlap and have a separation of $4.7 \sigma$, meaning that at this momentum and angle, protons are very unlikely to be misidentified as kaons, and vice versa.
+The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two distributions are separated by a distance of $2.4 \sigma$ - the significant overlap between the two distribution indicates that there is some chance of misidentification. Applying the same procedure to verify our separation between kaons and protons gives the results shown in Figure \ref{fig:kaonprotonsep}. Here we see that the two distributions do not significantly overlap and have a separation of $4.7 \sigma$, meaning that at this momentum and angle, protons are very unlikely to be misidentified as kaons, and vice versa.
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/kaonPionSep.pdf}}
@@ -79,24 +93,26 @@ The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two d
 
 \subsection{Momenta}
 A script was written to automate this procedure over a range of different initial particle directions and particle momenta. 
-Figure \TODO{} shows the  separation between likelihood distributions for each particle-particle pair over a range of momenta from 6 GeV/c to 14 GeV/c, with particles travelling directly down the $z$-axis.
-Rather than looking at the particle separations, Figure \TODO{} shows the misidentification rates: the percentage of the time the particle identity that yielded the minimum negative log-likelihood among the candidate particles was not the true particle.
+Figure \ref{fig:centeredSeps} shows the separation between likelihood distributions for each particle-particle pair over a range of momenta from 6 GeV/c to 14 GeV/c, with particles travelling directly down the $z$-axis.
+The effectiveness of this technique for particle separation can also be measured by looking at misidentification rates: that is, the percentage of the time the particle identity that yielded the minimum negative log-likelihood among the candidate particles was not the true particle.
+This is shown in Figure \ref{centeredMis}.
 
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/centeredSeps.pdf}}
-\caption[\TODO{}]{!}
-\label{fig:centeredErrs} 
+\caption[\TODO{}]{\TODO{Caption}}
+\label{fig:centeredSeps} 
 \end{figure}
 
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/centeredMisidentification.pdf}}
-\caption[\TODO{}]{!}
+\caption[\TODO{}]{\TODO{Caption}}
+\label{fig:centeredMis} 
 \end{figure}
 
-We see that as momentum increases, we steadily become worse and worse at distinguishing between pions and kaons - we get a separation of $2 \sigma$ past momenta of 7 GeV/c, and at a momentum of 14 GeV/c, we are no better than luck at determining whether a particle is a kaon or pion.
-We see that it does not become difficult to distinguish between a proton and a pion or kaon up until we reach approximately 12 or 13 GeV/c. 
+We see that as momentum increases, we steadily become worse and worse at distinguishing between pions and kaons - we get a separation greater than $2 \sigma$ past momenta of 7 GeV/c, and at a momentum of 14 GeV/c, we do no better than luck at determining whether a particle is a kaon or pion.
+We see that it does not become difficult to distinguish between a proton and a pion or a proton and a kaon up until we reach approximately 12 or 13 GeV/c. 
 
 \subsection{Angles}
 When particles enter the aerogel at nonzero angles, a number of intractable effects affect the resulting photon distribution. 
@@ -110,7 +126,8 @@ Past 0.35 radians, we see that our ability to distinguish particles actually dec
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/xAngleSeps.pdf}}
-\caption[\TODO{}]{!}
+\caption[\TODO{}]{\TODO{Caption}}
+\label{fig:angleSeps}
 \end{figure}
 
 \section{Multi-particle events}
@@ -131,7 +148,14 @@ In order to get a useful measure of our ability to measure multi-particle events
 To find out what these multi-particle events may look like, a simple Geant4 simulation of EMPHATIC was used.
 As an example of a typical experimental result, a beam of 10,000 protons with a momentum of 30 GeV/c was simulated.
 The protons were generated directly upstream of a 5.0 cm $\times$ 5.0 cm, 2.0 cm thick carbon target, and were directed along the $z$-axis of the experiment.
-Geant4 libraries were included to 
+Geant4 libraries were included to account for elastic scattering, particle decays, hadron physics, stopping physics, and Cherenkov radiation, among other processes. 
+The output of the simulation contains information about the identities and trajectories of the particles involved. 
+Of interest to this project are specifically the instances where a secondary charged particle enters the aerogel at a velocity sufficient to produce Cherenkov photons.
+
+
+
+
+It was found that out of the 10,000 events simulated, 24 contained positively charged Kaons entering the aerogel.
 
 
 \endinput

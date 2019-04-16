@@ -31,7 +31,7 @@ If we are given the direction vector of the particle, we can use a rotation matr
 This is given by \TODO{Include here Rodrigue's rotation formula, and how it is adapted into matrix form}.
 
 The photons ultimately are detected by an array of PMTs, which have a known quantum efficiency, characterized over a range of frequencies of light.
-The efficiency curve of the PMTs is plotted in \TODO{cite datasheet?} Figure\ \ref{fig:qEff} and is given over a range from 267 to 687 nm.
+The efficiency curve of the PMTs is plotted inFigure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \TODO{cite datasheet} .
 
 \begin{figure}[]
 \centering
@@ -41,14 +41,13 @@ The efficiency curve of the PMTs is plotted in \TODO{cite datasheet?} Figure\ \r
 \end{figure}
 
 From equation \ref{eq:frankTamm}, we see that the distribution of photon wavelengths follows the distribution $1/\lambda^2$, so each photon is produced with a wavelength randomly drawn from this distribution on a range from 250 nm to 695 nm.
-These values were chosen, because if we linearly extrapolate the quantum efficiency curve, we see that we do not expect to get any detector response for photons of wavelengths outside of this range.
+If we linearly extrapolate the quantum efficiency curve, we see that we do not expect to get any detector response for photons of wavelengths outside of this range.
 Because all optical processes included in this simulation are inelastic, we do not expect any photon wavelength to change between the point of generation and the point of detection.
 Therefore, after generating Cherenkov photons we may randomly reject them immediately based on their probability of being detected, and not simulate their paths any further.
 
 The PMTs have dimensions of 48.5 mm $\times$ 48.5 mm.
 Each PMT contains $8 \times 8$ pixels, and have a packing density of 87\%. 
 The PMTs are expected to be arranged onto a 30 cm $\times$ 30 cm plane with a packing efficiency of $80\%$, 20 cm downstream of the first layer of aerogel.
-\TODO{Find out where packing efficiency of 0.8 comes from}.
 To model the photon detector array, we simply project the photons downstream onto a 30 cm $\times$ 30 cm histogram with $48 \times 48$ bins.
 The number of photons counted in each bin is scaled by a factor of $80\% \times 87\%$ to account for the packing efficiencies.
 
@@ -60,7 +59,7 @@ Two examples of photon distribution arising from this simple simulation are show
   \subfloat[Centered beam.]{\includegraphics[width=0.45\textwidth]{./figs/noscatter.pdf}\label{fig:f1}}
   \hfill
   \subfloat[Beam at an angle of 0.44 radians off the $z$-axis]{\includegraphics[width=0.45\textwidth]{./figs/noscatterangle.pdf}\label{fig:f2}}
-  \caption{ Examples of two photon distributions \TODO{Redo these two figures: Make them the same dimension, and tall so that they can be placed side by side}}
+  \caption{ Examples of two photon distributions, showing the mean number of photons we would expect to detect in each PMT pixel, after accounting for detector efficiency, but ignoring any optical effects. \TODO{Redo these two figures - make them the same dimension, and tall so that they can be placed side by side}}
   \label{fig:noScat}
 \end{figure}
 
@@ -68,15 +67,22 @@ Two examples of photon distribution arising from this simple simulation are show
 Following this initial simulation, more sophisticated optical effects were added in. 
 
 \subsection{Aerogel Choice}
-
+\TODO{Briefly mention why 1.035 and 1.045 works best?}
 
 $d1*tan(acos(1.0/n1)) = d2*tan(acos(1.0/n2)) $
 
 \subsection{Rayleigh Scattering}
 
 For EMPHATIC, aerogels with indices of refraction ranging from 1.03 to 1.05 in increments of 0.005 were considered, each with a thickness of 2 cm.
-The properties of different typical aerogels were characterized by another member of the collaboration \TODO{give credit to Tabata}: their refractive indices were measured for light with a wavelength of 405 nm, and the transmittances of light were measured for light of wavelengths ranging from 190 nm to 800 nm.
-The transmittance and refractive index of each aerogel are shown in Figure \TODO{aerogel refractive indices}.
+The properties of different typical aerogels were characterized by another member of the collaboration \TODO{cite Tabata, personal communication}: their refractive indices were measured for light with a wavelength of 405 nm, and the transmittances of light were measured for light of wavelengths ranging from 190 nm to 800 nm.
+The transmittance and refractive index of each aerogel are shown in Figure \ref{fig:transmittance}.
+
+\begin{figure}[]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./figs/transmittance2.pdf}
+    \caption{Optical transmittance curves of aerogels with n = 1.035 and n = 1.045.}
+  \label{fig:transmittance}
+\end{figure}
 
 As described in Section \ref{sec:optics}, the primary optical effect to account for is Rayleigh Scattering, wherein photons scatter with a probability proportional to $\lambda^{-4}$, and in a direction proportional to $1 + \cos^2(\theta)$.
 If we assume that the transmittance of light through the aerogels is only affected by Rayleigh scattering then we can approximate $L(\lambda)$, the Rayleigh scattering interaction length at each wavelength, with the following formula:
@@ -108,8 +114,7 @@ After the position and direction of the photon has been updated, a new ``distanc
 If we determine that a photon would not be in the aerogel after having travelled that distance, then we advance the photon forwards until the boundary of the aerogel.
 We then check what material the photon would be entering, and update the direction of the photon to account for the refraction caused by the photon travelling between two mediums of different refractive indices.
 
-%  \TODO{Cite https://www.osapublishing.org/josaa/fulltext.cfm?uri=josaa-29-7-1356&id=238954}.
-In order to compute refraction, we can use the following equation: \TODO{cite}
+In order to compute refraction, we can use the following equation: \TODO{cite \url{https://www.osapublishing.org/josaa/fulltext.cfm?uri=josaa-29-7-1356&id=238954}}
 \begin{equation}
 \bf{s'} = \mu\bf{s} + \bf{g}\sqrt{1 - \mu^2[1-(\bf{g \dot s})^2]} - \mu \bf{g}(\bf{g \dot s})
 \label{eq:refract}
@@ -131,7 +136,8 @@ After adding in these optical effects, An example of a photon distribution is sh
 In this section, I will compare the simulated photon distribution between my simulation and the full Geant4 simulation.
 They will be compared on a number of metrics, including the number of photons detected in the photon ring, and the level of background photons (determined by taking the ratio of histograms simulated by my simulation and by Geant4). This work is in progress: comparisons have been done, but it is still necessary to more accurately quantify the differences between the two simulations and display these results. I will describe the differences between my simulation and the full Geant4 simulation, and make the claim that my simulation contains enough of the necessary physics to simulate Cherenkov photons with sufficient accuracy for our purposes.
 
-\section{Mirror?}
+\section{Mirror}
+In order to 
 
 \endinput
 
