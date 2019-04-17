@@ -68,4 +68,4 @@ CP=		cp -p
 	$(RM) $*.aux $*.dvi $*.pdf
 
 doc.pdf: diss.pdf
-	$(CP) diss.pdf doc.pdf
+	$(MV) diss.pdf doc.pdf

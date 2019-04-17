@@ -31,7 +31,7 @@ If we are given the direction vector of the particle, we can use a rotation matr
 This is given by \TODO{Include here Rodrigue's rotation formula, and how it is adapted into matrix form}.
 
 The photons ultimately are detected by an array of PMTs, which have a known quantum efficiency, characterized over a range of frequencies of light.
-The efficiency curve of the PMTs is plotted inFigure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \TODO{cite datasheet} .
+The efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \TODO{cite H12700 datasheet} .
 
 \begin{figure}[]
 \centering
@@ -67,9 +67,9 @@ Two examples of photon distribution arising from this simple simulation are show
 Following this initial simulation, more sophisticated optical effects were added in. 
 
 \subsection{Aerogel Choice}
-\TODO{Briefly mention why 1.035 and 1.045 works best?}
+\TODO{Very briefly talk about adding in second aerogel layer. Briefly mention why 1.035 and 1.045 works best, because of the following equation:}
 
-$d1*tan(acos(1.0/n1)) = d2*tan(acos(1.0/n2)) $
+$d_1*tan(acos(1/n_1)) = d_2*tan(acos(1/n_2)) $
 
 \subsection{Rayleigh Scattering}
 
@@ -134,7 +134,11 @@ After adding in these optical effects, An example of a photon distribution is sh
 \label{fig:photonHist} 
 \end{figure}
 
+\TODO{Might want to briefly mention that I added in mirrors as an option to the simulation.}
+
 \endinput
+
+
 
 \section{Comparison with Geant4} 
 In this section, I will compare the simulated photon distribution between my simulation and the full Geant4 simulation.

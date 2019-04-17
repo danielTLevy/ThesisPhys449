@@ -4,34 +4,36 @@
 \chapter{Discussion}
 \label{ch:Discussion}
 
+\TODO{Statement on the effectiveness of this particle identification method under the conditions that I tested }
 
-\TODO{Due to the relatively high error associated with the measurement of the particle momenta, if I find that this method is not entirely sufficient at identifying particles then I will enhance the technique by scanning over different momentum hypotheses. This has not yet been implemented}
-
-
-In this section, I will talk about the viability of this likelihood approach for use in particle separation - under what circumstances does it work well, what are its limitations, how we could improve those limitations. At this time, I do not yet have enough results to say what these are. I also do not know how much I will be able to complete - if I do not manage to implement some improvement to the simulation, I may add it here. Possible things to talk about:
-\begin{itemize}
-\item The effectiveness at higher angles. If I find that this method is ineffective at distinguishing particles at high angles, I could talk about recommendations of what to do.
-\item I could talk about how the method becomes exponentially slower the more particles are involved, as the fit becomes multidimensional.
-\item If I do not have time to parallelize the code, I could talk about how I would do that, and what benefits that would give.
-\item If the code is not acceptably fast even with parallelization, I could talk about alternate approaches: for example, precomputing different photon distributions and interpolating them.
-\end{itemize}
-
-\section{High Angles}
-As seen in Figure \ref{fig:angleSeps}, we lose the ability to distinguish between different particles at sufficiently high angles, as the photon rings begin to fall out of the angular acceptance of the photon detector.
+\section{High-Angle Photons}
+As seen in Figure \ref{fig:angleSeps}, we lose the ability to distinguish between different particles when they enter the aerogel at sufficiently high angles, as the photon rings begin to fall out of the angular acceptance of the photon detector.
 One proposed solution to this issue is the addition mirrors to the sides of the detector, which would reflect high-angle photons onto the PMT array. 
-While this would allow us to identify high-angle particles, in all cases it would increase the background from Rayleigh-scatter photons, as we typically see a broad angular range of scattered photons.
+While this would allow us to identify high-angle particles, it would increase the background from Rayleigh-scatter photons, as we typically see a broad angular range of scattered photons.
 
-The simulation has an added option to include these mirrors.
-Photons that would ordinarily exit out of the sides of a defined 30 by 30 cm region get reflected back in.
+The fast ARICH simulation has an added option to include these mirrors.
+Photons that would ordinarily exit out of the sides of a defined 30 cm $\times$ 30 cm region get reflected back in.
 Two examples of the resulting photon distributions for particles at high angles are shown in Figure \TODO{Ref figure of mirrors}.
-It can be seen in the second example because of the high angle, the difference in refractive indices between the two aerogel layers causes splitting in the photon ring, which was not apparent at lower angles.
+It can be seen in the second example that because of the high angle, the difference in refractive indices between the two aerogel layers causes splitting in the photon ring, which was not apparent at lower angles.
 There is also a noticeably higher background of scattered photons compared to without the mirrors included.
 
 An alternative method to increase angular coverage would be to space out the PMTs
 
 While this has been fully implemented, it remains to be seen how this affects our ability to separate particles. 
 
-\section{Further options for optimization}
+\section{Momentum Error}
+\TODO{Explain how the results given did not account for the momentum resolutions of the upstream particle trackers. Talk about how beta fitting can be used to account for this unknown parameter: rather than simulating at just the measured momentum, we also simulate particles at the measured momentum plus or minus the error in our measurement of momentum. We can then quadratically fit to obtain a minimum.}
+
+\section{Multiparticle Events}
+\TODO{Talk about how more work must be done to: \\ 
+    - Characterize what combinations of particles we would expect to get - what kinds of multiplicities. \\
+    - Look at the angles and positions we expect to see for these secondary particles. \\
+    - Test out this particle identification technique to  ``typical" multi-particle events \\ \\
+Also, mention the computational issues we run into when we have higher multiplicities, especially if we are checking multiple beta values
+}
+
+\section{Further Extensions}
+\TODO{We could add in more sophisticated optical effects (wavelength-dependency of index of refraction, reflection, polarization of Cherenkov Radiation)}
 
 
 \endinput 
