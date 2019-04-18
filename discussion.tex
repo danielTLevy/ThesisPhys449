@@ -21,18 +21,34 @@ An alternative method to increase angular coverage would be to space out the PMT
 
 While this has been fully implemented, it remains to be seen how this affects our ability to separate particles. 
 
-\section{Momentum Error}
-\TODO{Explain how the results given did not account for the momentum resolutions of the upstream particle trackers. Talk about how beta fitting can be used to account for this unknown parameter: rather than simulating at just the measured momentum, we also simulate particles at the measured momentum plus or minus the error in our measurement of momentum. We can then quadratically fit to obtain a minimum.}
 
 \section{Multiparticle Events}
 \TODO{Talk about how more work must be done to: \\ 
     - Characterize what combinations of particles we would expect to get - what kinds of multiplicities. \\
     - Look at the angles and positions we expect to see for these secondary particles. \\
     - Test out this particle identification technique to  ``typical" multi-particle events \\ \\
-Also, mention the computational issues we run into when we have higher multiplicities, especially if we are checking multiple beta values
 }
 
+
+\section{Momentum Error}
+The particle identification method outlined so far involves fitting at the candidate particle velocities corresponding to the measured momentum of the unidentified particle.
+However, this does not account for the resolution of the momentum measurements.
+We may achieve a better fit for the simulated photon ring if the velocity of the simulated particle more closely matches the ``true" momentum of the particle, and get a more clear negative log-likelihood minima. 
+
+To account for the resolution of the momentum measurements, we may simulate velocities corresponding not only to the measured momentum, but also at values equal to the that momentum plus or minus one or two standard deviations.
+This would yield three or 5 simulations per particle, rather than just one, significantly increasing the computation cost. 
+
+We could then quadratically fit to obtain the specific expected velocity of the particle
+
+This could be done
+
+\TODO{THIS}
+
 \section{Further Extensions}
+Several optical processes were ignored in the fast ARICH simulation, and adding these in may improve the particle fitting. 
+Refraction was implemented at the boundaries between the two aerogels as well as the boundaries between aerogel and air, as these were thought to be the main processes altering the photon distributions.
+Additional effects come from the reflection at the boundaries between media - this effect was assumed to have minimal effects, as the amplitude of the reflected light increases with respect to the angle of incidence with the boundary, and non-scattered photons that would make up the photon ring photons   
+
 \TODO{We could add in more sophisticated optical effects (wavelength-dependency of index of refraction, reflection, polarization of Cherenkov Radiation)}
 
 

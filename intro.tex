@@ -18,7 +18,7 @@ This implied that neutrinos have a nonzero mass, a result not predicted by the S
 The theorized explanation for neutrino oscillation is that each neutrino flavor actually exists as some superposition of 3 different mass states. As a neutrino travels over large distances, the differences in phases of the mass states results in a shifting probability of detecting each neutrino flavor.
 The relationship between mass and flavor states is governed by the following relation:
 
-\[
+\begin{equation}
 \begin{pmatrix}
 \nu_e \\ \nu_\mu \\ \nu_\tau
 \end{pmatrix}
@@ -32,8 +32,7 @@ U_{\tau 1} & U_{\tau 2} & U_{\tau 3}
 \begin{pmatrix}
 \nu_1 \\ \nu_2 \\ \nu_3
 \end{pmatrix}
-\]
-
+\end{equation}
 
 Here, U is a $3 \times 3$ unitary matrix, known as the Pontecorvo–Maki–Nakagawa–Sakata (PMNS) Matrix. The matrix can be characterized by 4 parameters: $\theta_{12}, \theta_{23}$, and $\theta_{13}$, which are the mixing angles, and $\delta_{CP}$, known as the CP-violating phase \cite{pdg2018}. The probability of a neutrino oscillating from one flavor to another is governed by the distance travelled, the mixing angles, and $\Delta m_{ij}^2$, the squared mass difference between neutrino states. 
 
@@ -47,14 +46,18 @@ It is uncertain whether $\sin(\delta_{CP})$ is consistent with zero: If it is no
 The next generation of neutrino experiments aim to answer all of these questions (and more) to a high degree of precision - they include the Deep Underground Neutrino Experiment (DUNE) \cite{duneDesign} and the Hyper-Kamiokande experiment \cite{hyperKDesign}.
 In both experiments, a large flux of neutrinos is generated with a particle accelerator hundreds of kilometers away from a large neutrino detector.
 When a sufficiently energetic particle beam hits a target, the collision produces secondary particles: mostly charged pions and kaons.
-Magnetic horns are used to direct these secondary particles in the direction of the distant detector.
+Magnetic horns are used to direct these secondary particles in the direction of the distant detector. \TODO{introduce the term ``hadron"} 
 The charged pions will decay in flight as follows:
 
-$$ \pi^+ \rightarrow \mu^+ + \nu_\mu \quad   \text{and} \quad \mu^+ \rightarrow \bar{\nu}_e + \nu_\mu$$
+\begin{equation}
+\pi^+ \rightarrow \mu^+ + \nu_\mu \quad   \text{and} \quad \mu^+ \rightarrow \bar{\nu}_e + \nu_\mu
+\end{equation}
 
 The charged kaons have several decay modes, but the most common are:
 
-$$ K^+ \rightarrow \mu^+ + \nu_\mu \text{,} \quad  K^+ \rightarrow \pi^+ + \pi^0  \text{,}\quad K^+ \rightarrow \pi^0 + e^+ + \nu_e$$
+\begin{equation}
+K^+ \rightarrow \mu^+ + \nu_\mu \text{,} \quad  K^+ \rightarrow \pi^+ + \pi^0  \text{,}\quad K^+ \rightarrow \pi^0 + e^+ + \nu_e
+\end{equation}
 
 There are corresponding charge-conjugate decays for the $\pi^-$ and $K^-$. 
 As these secondary particles decay, a large number of resulting neutrinos are sent in the direction of the detector, where only a very small fraction will be detected.
@@ -91,7 +94,8 @@ Because the atmosphere is primarily composed of nitrogen and oxygen, measuring t
 
 \ac{EMPHATIC} includes four different kinds of detectors that serve to measure hadron production.
 A set of silicon strip detectors (SSDs) register the position of each particle as they pass through.
-A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature is proportional to momentum of the particle, so using multiple SSDs downstream of the magnet allows for the measurement of particle momenta and trajectories.
+A permanent magnet downstream of the target causes the trajectory of particles to curve due to the Lorentz force: the radius of the curvature is proportional to momentum of the particle.
+By using multiple SSDs downstream of the magnet, particle momenta and trajectories may be measured.
 The particles then pass through an Aerogel Ring Imaging Cherenkov (ARICH) detector.
 As explained in Section \ref{sec:ARICH}, this detector can be used to determine a charged particle's velocity if its trajectory is known. 
 If the velocity and momentum of a particle are known, then its mass may be determined.
@@ -114,6 +118,7 @@ This technique is fully described in Chapter \ref{sec:particleIdentification}.
 
 Concurrent work is underway for a full end-to-end Monte Carlo simulation of the EMPHATIC experimental setup.
 This simulation is created using Geant4, a platform designed for Monte Carlo simulations of particles passing through matter \cite{geant4}.
+\TODO{Replace instances of ``Geant4" with ``DetectorSim"}
 This simulation will contain information on the placement of all detector components and their materials, and models the physical interactions of each particle running through the experiment, and the shower of secondary particles produced.
 While the Geant4 simulation should give accurate results for the distribution of optical photons for different particle hypotheses, it is relatively slow to perform for each particle.
 Using this likelihood approach to particle identification, we would be required to run several different simulations per experimental event.

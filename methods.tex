@@ -31,7 +31,7 @@ If we are given the direction vector of the particle, we can use a rotation matr
 This is given by \TODO{Include here Rodrigue's rotation formula, and how it is adapted into matrix form}.
 
 The photons ultimately are detected by an array of PMTs, which have a known quantum efficiency, characterized over a range of frequencies of light.
-The efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \TODO{cite H12700 datasheet} .
+The efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \cite{H12700} .
 
 \begin{figure}[]
 \centering
@@ -74,7 +74,7 @@ $d_1*tan(acos(1/n_1)) = d_2*tan(acos(1/n_2)) $
 \subsection{Rayleigh Scattering}
 
 For EMPHATIC, aerogels with indices of refraction ranging from 1.03 to 1.05 in increments of 0.005 were considered, each with a thickness of 2 cm.
-The properties of different typical aerogels were characterized by another member of the collaboration \TODO{cite Tabata, personal communication}: their refractive indices were measured for light with a wavelength of 405 nm, and the transmittances of light were measured for light of wavelengths ranging from 190 nm to 800 nm.
+The properties of different typical aerogels were characterized by another member of the collaboration \cite{aerogelTabata}: their refractive indices were measured for light with a wavelength of 405 nm, and the transmittances of light were measured for light of wavelengths ranging from 190 nm to 800 nm.
 The transmittance and refractive index of each aerogel are shown in Figure \ref{fig:transmittance}.
 
 \begin{figure}[]
@@ -117,7 +117,7 @@ If we determine that a photon would not be in the aerogel after having travelled
 When photons travel between one medium to another medium with a different index of refraction, they undergo refraction, changing their direction.
 In the simulation, after a photon is advanced out of the aerogel, we can check what material the photon would be entering, and update the direction of the photon to account for the refraction.
 
-In order to quickly compute the resulting photon direction vector, we can use the following vector form of Snell's Law: \TODO{cite \url{https://www.osapublishing.org/josaa/fulltext.cfm?uri=josaa-29-7-1356&id=238954}}
+In order to quickly compute the resulting photon direction vector, we can use the following vector form of Snell's Law: \cite{snell}
 \begin{equation}
 \bf{s'} = \mu\bf{s} + \bf{g}\sqrt{1 - \mu^2[1-(\bf{g \dot s})^2]} - \mu \bf{g}(\bf{g \dot s})
 \label{eq:refract}
