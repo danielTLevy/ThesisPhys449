@@ -119,11 +119,11 @@ This technique is fully described in Chapter \ref{sec:particleIdentification}.
 Concurrent work is underway for a full end-to-end Monte Carlo simulation of the EMPHATIC experimental setup.
 This simulation is created using Geant4, a platform designed for Monte Carlo simulations of particles passing through matter \cite{geant4}.
 This simulation will contain information on the placement of all detector components and their materials, and models the physical interactions of each particle running through the experiment, and the shower of secondary particles produced. \TODO{Awkward sentence}
-While the Geant4 simulation should give accurate results for the distribution of optical photons for different particle hypotheses, it is relatively slow to perform for each particle.
-Using this likelihood approach to particle identification, we would be required to run several different simulations per experimental event.
+While the Geant4 simulation should give accurate results for the distribution of optical photons for different particle hypotheses, it is relatively slow to perform a full simulation for each particle.
+Using the proposed likelihood approach to particle identification, we would be required to run several different simulations per experimental event.
 The Geant4 simulation is therefore too slow to be run as a tool for particle identification, necessitating the need for a more efficient fast simulation of just the optical processes in the ARICH detector. 
 
-In this project, I created such a fast simulation that incorporates the necessary physical processes while maintaining high efficiency.
+In this project, I created such a fast simulation that incorporates the relevant physical processes while maintaining high efficiency.
 The simulation is described in Chapter \ref{ch:Methods}.
 Following this, the particle identification performance of this technique was evaluated under several different conditions, which are described in Chapter \ref{ch:Results}.
 

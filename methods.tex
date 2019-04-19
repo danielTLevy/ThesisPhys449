@@ -6,8 +6,6 @@
 To run particle identification on each event, a fast simulation of the optical photon distributions in the EMPHATIC ARICH detector was developed.
 The simulation of the ARICH detector was created using \textsc{ROOT}: an object-oriented scientific computing framework based off C++ and developed at CERN \cite{root}.
 \textsc{ROOT} is used for its ease of use, the high degree of organization and extensibility that comes from its object-oriented nature, and its high efficiency when compiled.
-The simulation was created in steps of increasing added complexity, which are outlined in this chapter. \TODO{remove this sentence}
-
 
 \section{Initial Simulation}
 \label{sec:experiment}
@@ -15,9 +13,9 @@ The first step in building the simulation was to generate a stream of particles,
 If we define the $z$ axis to be the downstream direction, then the inputs to the simulation are:
 \begin{itemize}
 \item the initial $x$ and $y$ position of a particle at $z=0$,
-\item the error on the $x$ and $y$ position of the particle, corresponding to the position resolution of the upstream particle tracker,
+\item the error in the $x$ and $y$ position of the particle, corresponding to the position resolution of the upstream particle tracker,
 \item the $x$ and $y$ components of the unit vector representing the direction of the particle's movement,
-\item the error on the $x$ and $y$ direction of the particle, corresponding to the direction resolution of the upstream particle tracker, and
+\item the error in the $x$ and $y$ direction of the particle, corresponding to the direction resolution of the upstream particle tracker, and
 \item the velocity $\beta$ of the particle.
 \end{itemize} 
 The simulation generates 10,000 such particles whose initial positions and directions are randomly drawn from a Gaussian distribution with the specified mean values and errors.
@@ -29,26 +27,26 @@ Their polar angle $\theta$ with respect to the direction of travel of the partic
 If we are given the direction vector of the particle, we can use a rotation matrix to get the resulting direction vectors for each of the photons it generates.
 This is given by \TODO{Include here Rodrigue's rotation formula, and how it is adapted into matrix form}.
 
-The photons ultimately are detected by an array of PMTs, which have a known quantum efficiency, characterized over a range of frequencies of light.
-The efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \cite{H12700} .
+The EMPHATIC ARICH will include a 6 $\times$ 6 array of H12700 PMT assemblies. 
+Each assembly has dimensions of 48.5 mm $\times$ 48.5 mm, and contains $8 \times 8$ separate pixels, positioned with a packing density of 87\%. 
+The PMT assemblies are expected to be arranged onto a 30 cm $\times$ 30 cm plane with a packing efficiency of approximately $80\%$, and be placed 20 cm downstream of the center of the first layer of aerogel.
+To model the photon detector array, we simply project the photons downstream onto a 30 cm $\times$ 30 cm plane and record the hits on a 2-dimensional histogram with $48 \times 48$ evenly-sized bins.
+The number of photons counted in each bin is scaled by a factor of $80\% \times 87\%$ to account for the packing efficiencies.
+
+The H12700 PMTs have a characteristic quantum efficiency, corresponding to the mean number of photoelectrons per photon collected by the device over a spectrum of wavelengths.
+The quantum efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \cite{H12700} .
+If we linearly extrapolate the quantum efficiency curve, we see that we do not expect to get any detector response for photons of wavelengths outside of the range of 250 nm to 695 nm.
+From Equation \ref{eq:frankTamm}, we see that the Cherenkov photon wavelengths follows a distribution proportional to $1/\lambda^2$, so when each photon is generated, it is assigned a wavelength randomly drawn from this distribution on a range from 250 nm to 695 nm.
+For each photon that strikes the detector, we must evaluate the quantum efficiency of the detector at the photon's wavelength, and randomly either register it as a hit or discard it based on this value.
+Because all optical processes included in this simulation are inelastic, we do not expect any photon wavelength to change between the point of generation and the point of detection.
+We may therefore randomly discard Cherenkov photons immediately after they are generated, based on their wavelength and eventual probability of being detected, rather than simulating their paths further.
 
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/qEff.pdf}}
-\caption[Quantum Efficiency of H12700 PMT used by EMPHATIC.]{Quantum Efficiency of H12700 PMT used by EMPHATIC.}
+\caption[Quantum Efficiency of H12700 PMT used by EMPHATIC.]{Quantum Efficiency of H12700 PMT used by EMPHATIC, adapted from \cite{H12700}.}
 \label{fig:qEff} 
 \end{figure}
-
-From equation \ref{eq:frankTamm}, we see that the distribution of photon wavelengths follows a distribution proportional to $1/\lambda^2$, so each photon is produced with a wavelength randomly drawn from this distribution on a range from 250 nm to 695 nm.
-If we linearly extrapolate the quantum efficiency curve, we see that we do not expect to get any detector response for photons of wavelengths outside of this range of wavelengths.
-Because all optical processes included in this simulation are inelastic, we do not expect any photon wavelength to change between the point of generation and the point of detection.
-Therefore, after generating Cherenkov photons we may randomly reject them immediately based on their eventual probability of being detected by the PMTs, and not simulate their paths any further if we decide that they would not be detected. \TODO{reword}
-
-The PMTs have dimensions of 48.5 mm $\times$ 48.5 mm.
-Each PMT contains $8 \times 8$ pixels, and have a packing density of 87\%. 
-The PMTs are expected to be arranged onto a 30 cm $\times$ 30 cm plane with a packing efficiency of $80\%$, 20 cm downstream of the first layer of aerogel.
-To model the photon detector array, we simply project the photons downstream onto a 30 cm $\times$ 30 cm histogram with $48 \times 48$ bins.
-The number of photons counted in each bin is scaled by a factor of $80\% \times 87\%$ to account for the packing efficiencies.
 
 Two examples of photon distribution arising from this simple simulation are shown in Figure \ref{fig:noScat}. While this simulation well approximates the expected location of a particle's photon rings for a single layer of aerogel, it is missing a number of key effects that would allow it to actually be used to calculate a realistic photon distribution.
 
@@ -100,8 +98,8 @@ x =   -L\ln(1-p)
   \label{eq:randomScat}
 \end{equation}
 
-In the simulation, when each photon is generated, a random ``distance until scattering" is calculated this way. 
-We check whether or not a photon would still be in the aerogel after having travelled that distance: if it is, then we advance it forwards by that amount, and then assign the photon a new direction, where $\theta$ is sampled from the distribution $1 + \cos^2(\theta)$, and $\phi$ is randomly sampled from $[0, 2\pi]$.
+In the fast ARICH simulation, when each photon is generated, a random ``distance until scattering" is calculated this way. 
+We check whether or not a photon would still be in the aerogel volume after having travelled that distance: if it is, then we advance it forwards by that amount, and then assign the photon a new direction, where $\theta$ is sampled from the distribution $1 + \cos^2(\theta)$, and $\phi$ is randomly sampled from $[0, 2\pi]$.
 After the position and direction of the photon has been updated, a new ``distance until scattering" is calculated and this process is repeated. 
 If we determine that a photon would not be in the aerogel after having travelled that distance, then we advance the photon forwards until the boundary of the aerogel.
 
@@ -115,7 +113,7 @@ In order to quickly compute the resulting photon direction vector, we can use th
 \label{eq:refract}
 \end{equation}
 
-In this equation, $\mu$ is the ratio $n_1/n_2$, $\bf{s}$ is the unit direction of the incident photon, $\bf{g}$ is the unit normal vector pointing out of the aerogel slab the photon is exiting, and $\bf{s'}$ is the unit vector direction of the photon after being refracted.
+In this equation, $\mu$ is the ratio $n_1/n_2$ between the , where $n_1$ is the index of refraction of the aerogel, and $n_2, $\bf{s}$ is the unit direction of the incident photon, $\bf{g}$ is the unit normal vector pointing out of the side of the aerogel slab the photon is exiting, and $\bf{s'}$ is the unit vector direction of the photon after being refracted.
 
 After adding in these optical effects, An example of a photon distribution is shown in Figure \ref{fig:photonHist}. The expected number of photons detected in each ring decreased substantially, and a background of scattered photons is seen in every PMT pixel. \TODO{Write down an example of the number of photons in the ring before and after adding in optical effects}
 
