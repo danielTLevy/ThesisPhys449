@@ -23,6 +23,11 @@ While this has been fully implemented, it remains to be seen how this affects ou
 
 
 \section{Multiparticle Events}
+In order to characterize the effectiveness of this particle identification technique on real experimental data,  more in-depth study of what kinds of events we expect to see is required. 
+The technique has been shown to be effective for low-multiplicity events with clear, distinct rings, but it is unclear how often this idealized scenario actually presents itself.
+The multiplicities of the events are not clear, and we do not know at what differences in angles and positions we expect to see particles.
+Future work is necessary to run this particle identification script on each simulated Geant4 event.
+
 \TODO{Talk about how more work must be done to: \\ 
     - Characterize what combinations of particles we would expect to get - what kinds of multiplicities. \\
     - Look at the angles and positions we expect to see for these secondary particles. \\
@@ -47,7 +52,10 @@ This could be done
 \section{Further Extensions}
 Several optical processes were ignored in the fast ARICH simulation, and adding these in may improve the particle fitting. 
 Refraction was implemented at the boundaries between the two aerogels as well as the boundaries between aerogel and air, as these were thought to be the main processes altering the photon distributions.
-Additional effects come from the reflection at the boundaries between media - this effect was assumed to have minimal effects, as the amplitude of the reflected light increases with respect to the angle of incidence with the boundary, and non-scattered photons that would make up the photon ring photons   
+Additional effects come from the reflection at the boundaries between media - this effect was assumed to have minimal impact, as the amplitude of the reflected light increases with respect to the angle of incidence with the boundary, and non-scattered photons that would make up the Cherenekov photon ring would have a relatively low angle.
+However, this should be investigated to determine the effect of adding it in.
+
+The current modelling of the detector is quite crude - a more sophisticated simulation could be done to account for the real dead space of the PMTs, and the non-uniformity of their pixel size. 
 
 \TODO{We could add in more sophisticated optical effects (wavelength-dependency of index of refraction, reflection, polarization of Cherenkov Radiation)}
 

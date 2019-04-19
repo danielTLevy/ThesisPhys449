@@ -1,54 +1,9 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Particle Identification}
+\chapter{Results}
 \label{ch:Results}
-%\section{Particle Identification}
-\label{sec:particleIdentification}
-In order to identify particles using the \ac{ARICH} detector, a particle likelihood method is used \cite{richImpact, belleArich}.
-For this method, we take the measured momentum of the particle, and determined the expected velocity for different candidate particles masses.
-The candidate particles of interest for this study are protons, with a mass of 0.938 GeV/c$^2$, pions, with a mass of 0.140 GeV/c$^2$, and kaons, with a mass of 0.494 GeV/c$^2$\TODO{cite pdg}.
-To calculate the velocity, we then use the following relativistic equation, assuming units where $c = 1$:
 
-\begin{equation}
-\label{eq:relMass}
- \beta = \sqrt{\frac{1}{1 +m^2 / p^2}}
-\end{equation}
-
-
-For each velocity hypothesis, we run 10,000 simulations of particles moving at that velocity, with the same measured initial trajectory as the input event data, and get the distribution of the resulting photons.
-For each pixel of the detector, this procedure will give a value $\lambda_i(\beta)$, equal to the expected number of photons striking pixel $i$ in the detector due to a particle of velocity $\beta$. 
-
-For a given event, we will detect $N_i$ photons in each pixel $i$.
-In reality, the PMTs are only capable of registering whether or not a photon has been detected - if multiple photons strike a single pixel in a very short amount of time, it will not be able to distinguish the number detected, so we just know if $N_i = 0$ or $N_i > 0$.
-
-If we assume that the number of photons detected by a PMT pixel is given by a Poisson distribution, then the probability that zero photons strike pixel $i$ is given by:
-\begin{equation}
-P_i(N_i=0; \beta) = e^{-\lambda_i(\beta)}
-\end{equation}
-
- The probability that one or more photons strike pixel $i$ must then be:
-\begin{equation}
-P_i(N_i>1; \beta) = 1 - e^{-\lambda_i(\beta)}
-\end{equation}
-
-By multiplying the probabilities of getting the observed result in each pixel $i$ of the detector, we calculate the likelihood for that value of $\beta$:
-
-\begin{equation}
-L_\beta = \prod_{i}P_i(N_i; \beta)
-\end{equation}
-
-Because of the floating point errors that would inevitably be introduced by multiplying hundreds of numbers together, we instead can look at twice the negative log of the likelihood:
-
-\begin{equation}
-    \label{eq:log-likelihood}
-    -2\ln(L_\beta) = -2\sum_i \ln(P_i(N_i; \beta))
-\end{equation}
-
-Because the log function is montonic, maximizing the likelihood function is equivalent to minimizing the negative log-likelihood.
-%One potential downside to using the negative log-likelihood is that if some bin has a computed value $\lambda$ of 0, then the likelihood of the distribution becomes $-\infinity$. 
-%Because this may lead to numerical problems, we may apply some additive smoothing.
-For each event, the negative log-likelihood can be calculated for each particle hypothesis, and we can predict that each event was caused by the particle that minimizes the negative log-likelihood.
 
 The full code implementing this particle identification approach and the fast ARICH simulation is described in more detail in Appendix A.
 
