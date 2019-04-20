@@ -4,9 +4,29 @@
 \chapter{Discussion}
 \label{ch:Discussion}
 
-The particle identification 
+The technique of using a likelihood method of  particle identification was found to be useful at distinguishing between lower momentum particles. However, a number of more cases and extensions must be examined to evaluate the usefulness of this technique for analyzing experimental data. 
+These are discussed in this section. 
 
-\TODO{Statement on the effectiveness of this particle identification method under the conditions that I tested }
+
+\section{Multi-Particle Events}
+ In order to get a useful measure of our ability to measure multi-particle events, it is necessary that we better understand what these events might look like in a real experiment.
+
+To find out what these multi-particle events may look like in a typical experiment, the Geant4 simulation of EMPHATIC was used to simulate a beam of 10,000 protons with a momentum of 30 GeV/c.
+The protons were generated directly upstream of a 5.0 cm $\times$ 5.0 cm, 2.0 cm thick carbon target, and were directed along the $z$-axis of the experiment.
+Geant4 libraries were included to account for elastic scattering, particle decays, hadron physics, stopping physics, and Cherenkov radiation, among other processes. 
+The output of the simulation contains information about the identities and trajectories of the particles involved. 
+Of interest to this project are specifically the instances where a secondary charged particle enters the aerogel at a velocity sufficient to produce Cherenkov photons.
+
+\TODO{Include matrices of what particles we find as the highest-momentum particles vs. second-highest momentum particle. Key points: The most typical particle-particle combinations are higher-momenta protons with lower-momenta pions, or two pions.} 
+
+It was found that out of the 10,000 events simulated, 24 contained positively charged Kaons entering the aerogel.
+\TODO{If I have some time I'll look into the Kaon events.}
+
+
+In order to characterize the effectiveness of this particle identification technique on real experimental data,  more in-depth study of what kinds of events we expect to see is required. 
+The technique has been shown to be effective for low-multiplicity events with clear, distinct rings, but it is unclear how often this idealized scenario actually presents itself.
+The multiplicities of the events are not clear, and we do not know at what differences in angles and positions we expect to see particles.
+Future work is necessary to run this particle identification script on each simulated Geant4 event.
 
 \section{High-Angle Photons}
 As seen in Figure \ref{fig:angleSeps}, we lose the ability to distinguish between different particles when they enter the aerogel at sufficiently high angles, as the photon rings begin to fall out of the angular acceptance of the photon detector.
@@ -24,33 +44,25 @@ An alternative method to increase angular coverage would be to space out the PMT
 While this has been fully implemented, it remains to be seen how this affects our ability to separate particles. 
 
 
-\section{Multiparticle Events}
-In order to characterize the effectiveness of this particle identification technique on real experimental data,  more in-depth study of what kinds of events we expect to see is required. 
-The technique has been shown to be effective for low-multiplicity events with clear, distinct rings, but it is unclear how often this idealized scenario actually presents itself.
-The multiplicities of the events are not clear, and we do not know at what differences in angles and positions we expect to see particles.
-Future work is necessary to run this particle identification script on each simulated Geant4 event.
-
-\TODO{Talk about how more work must be done to: \\ 
-    - Characterize what combinations of particles we would expect to get - what kinds of multiplicities. \\
-    - Look at the angles and positions we expect to see for these secondary particles. \\
-    - Test out this particle identification technique to  ``typical" multi-particle events \\ \\
-}
-
-
 \section{Momentum Error}
 The particle identification method outlined so far involves fitting at the candidate particle velocities corresponding to the measured momentum of the unidentified particle.
 However, this does not account for the resolution of the momentum measurements.
 We may achieve a better fit for the simulated photon ring if the velocity of the simulated particle more closely matches the ``true" momentum of the particle, and get a more clear negative log-likelihood minima. 
 
 To account for the resolution of the momentum measurements, we may simulate velocities corresponding not only to the measured momentum, but also at values equal to the measured momentum plus or minus one or two standard deviations.
-This would yield three or five simulations per particle, rather than just one, significantly increasing the computation cost. 
+This would yield three or five simulations per particle, rather than just one, significantly increasing the computation cost, especially for multi-particle events. 
 
-We could then quadratically fit to obtain the specific expected velocity of the particle.
+We could then quadratically fit to obtain the specific expected velocity of the particle
+
 This could be done
 
 \TODO{THIS}
 
 \section{Further Extensions}
+
+Each particle in the simulation is independent, so the simulation could potentially be modified to process each particle in parallel. 
+However, this was deemed unnecessary: as each experimental event is independent, this technique for particle identification could be sped up by processing each event in parallel.
+
 Several optical processes were ignored in the fast ARICH simulation, and adding these in may improve the particle fitting. 
 Refraction was implemented at the boundaries between the two aerogels as well as the boundaries between aerogel and air, as these were thought to be the main processes altering the photon distributions.
 Additional effects come from the reflection at the boundaries between media - this effect was assumed to have minimal impact, as the amplitude of the reflected light increases with respect to the angle of incidence with the boundary, and non-scattered photons that would make up the Cherenekov photon ring would have a relatively low angle.

@@ -24,19 +24,21 @@ A layer of aerogel was defined in the simulation as a 2 cm thick, 10 cm by 10 cm
 For each simulated particle with a given velocity $\beta$, we use equation \ref{eq:photonNumber} to calculate the mean number of photons emitted per unit length, and generate a number of photons equal to this value multiplied by the distance the particle has to travel through the aerogel.
 The initial position of these photons are randomly distributed along the path travelled by the particle through the aerogel.
 Their polar angle $\theta$ with respect to the direction of travel of the particle is given by equation \ref{eq:cherenkovAngle}, and their azimuthal angle is randomly drawn from between 0 and $2\pi$.
+\begin{comment}
 If we are given the direction vector of the particle, we can use a rotation matrix to get the resulting direction vectors for each of the photons it generates.
 This is given by \TODO{Include here Rodrigue's rotation formula, and how it is adapted into matrix form}.
+\end{comment}
 
 The EMPHATIC ARICH will include a 6 $\times$ 6 array of H12700 PMT assemblies. 
-Each assembly has dimensions of 48.5 mm $\times$ 48.5 mm, and contains $8 \times 8$ separate pixels, positioned with a packing density of 87\%. 
+Each assembly has dimensions of 48.5 mm $\times$ 48.5 mm, and contains $8 \times 8$ separate pixels, positioned with a packing density of 87\% \cite{H12700}.
 The PMT assemblies are expected to be arranged onto a 30 cm $\times$ 30 cm plane with a packing efficiency of approximately $80\%$, and be placed 20 cm downstream of the center of the first layer of aerogel.
 To model the photon detector array, we simply project the photons downstream onto a 30 cm $\times$ 30 cm plane and record the hits on a 2-dimensional histogram with $48 \times 48$ evenly-sized bins.
 The number of photons counted in each bin is scaled by a factor of $80\% \times 87\%$ to account for the packing efficiencies.
 
 The H12700 PMTs have a characteristic quantum efficiency, corresponding to the mean number of photoelectrons per photon collected by the device over a spectrum of wavelengths.
-The quantum efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm  \cite{H12700} .
+The quantum efficiency curve of the PMTs is plotted in Figure \ref{fig:qEff} and is given over a range from 267 to 687 nm.
 If we linearly extrapolate the quantum efficiency curve, we see that we do not expect to get any detector response for photons of wavelengths outside of the range of 250 nm to 695 nm.
-From Equation \ref{eq:frankTamm}, we see that the Cherenkov photon wavelengths follows a distribution proportional to $1/\lambda^2$, so when each photon is generated, it is assigned a wavelength randomly drawn from this distribution on a range from 250 nm to 695 nm.
+From Equation \ref{eq:frankTamm}, we see that the Cherenkov photon wavelengths follows a distribution proportional to $1/\lambda^2$, so upon creation, each photon is assigned a wavelength randomly drawn from this distribution on a range from 250 nm to 695 nm.
 For each photon that strikes the detector, we must evaluate the quantum efficiency of the detector at the photon's wavelength, and randomly either register it as a hit or discard it based on this value.
 Because all optical processes included in this simulation are elastic, we do not expect any photon wavelength to change between the point of generation and the point of detection.
 We may therefore randomly discard Cherenkov photons immediately after they are generated, based on their wavelength and eventual probability of being detected, rather than simulating their paths further.
@@ -99,11 +101,11 @@ In the simulation, after a photon is advanced out of the aerogel, we can check w
 
 In order to quickly compute the resulting photon direction vector for a photon passing through a layer of aerogel with an index of refraction $n_1$ to a medium with an index of refraction $n_2$, we can use the following vector form of Snell's Law: \cite{snell}
 \begin{equation}
-\bf{s'} = \mu\bf{s} + \bf{g}\sqrt{1 - \mu^2[1-(\bf{g \dot s})^2]} - \mu \bf{g}(\bf{g \dot s})
+\bf{s'} = \mu\bf{s} + \bf{g}\sqrt{1 - \mu^2[1-(\bf{g \cdot s})^2]} - \mu \bf{g}(\bf{g \cdot s})
 \label{eq:refract}
 \end{equation}
 
-In this equation, $\mu$ is the ratio $n_1/n_2$,  $\bf{s}$ is the unit direction of the incident photon, $\bf{g}$ is the unit normal vector pointing out of the side of the aerogel slab the photon is exiting, and $\bf{s'}$ is the unit vector direction of the photon after being refracted.
+In this equation, $\mu$ is the ratio $n_1/n_2$,  $\bf{s}$ is the unit direction vector of the incident photon, $\bf{g}$ is the unit normal vector pointing out of the side of the aerogel slab the photon is exiting, and $\bf{s'}$ is the unit direction vector of the photon after being refracted.
 
 Two example of photon distributions obtained after adding in these optical effects are shown in Figure \ref{fig:photonPdfs}.
 Due to Rayleigh scattering, the expected number of photons detected in each ring decreased substantially, and a background of scattered photons is seen in every PMT pixel.
@@ -129,7 +131,7 @@ Due to refraction, the positions at which the photon rings are detected are slig
 \section{Particle Identification Script}
 Following the creation of the fast simulation, a script was written to conduct particle identification on given experimental data.
 The script takes in as input a 2-dimensional histogram of photon hits, the measured position, direction, and momentum of a the event, and generates corresponding simulated photon distributions using the fast ARICH simulation.
-Using the technique described in Section \ref{sec:particleIdentification}, the script outputs the 
+Using the technique described in Section \ref{sec:particleIdentification}, the script calculates the negative log-likelihood for each particle type, and outputs the most likely particle that generated the event.
 
 The full code implementing this particle identification approach and the fast ARICH simulation is described in more detail in Appendix \ref{ch:simCode}.
 

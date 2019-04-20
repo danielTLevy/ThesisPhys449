@@ -4,11 +4,14 @@
 \chapter{Results}
 \label{ch:Results}
 
-
+\section{Fast Simulation Performance}
+It was found that the fast ARICH simulation takes approximately 4 seconds to generate a photon distribution resulting from simulating 10,000 particles when running on a computer with a 2.7 GHz processor. 
+Simulating the same 10,000 particles on the same computer using the Geant4 simulation of the EMPHATIC setup took approximately 100 seconds.
+By ignoring all irrelevant physical processes in the simulation and removing the majority of the overhead of a Geant4 simulation, a significant performance speedup was attained.
 
 \section{Particle Separation}
-With this approach to particle identification in place, it is necessary to establish the effectiveness of the technique under different conditions.
-As an example, let us suppose we want to determine how well this likelihood approach works on a particle that is 7 GeV and measured to enter the center of the aerogel and travel directly in the z-direction.
+It is necessary to establish the effectiveness of the likelihood particle identification technique under different conditions.
+As an example, let us suppose we want to determine how well this likelihood approach works on a particle that is 7 GeV and measured to enter the center of the aerogel and travel directly in the $z$-direction.
 To check the certainty with which this technique can identify whether this is a pion or kaon, I applied the following procedure:
 
 \begin{enumerate}
@@ -21,11 +24,11 @@ This is just the differences between the negative log-likelihoods of the two hyp
 \item Look at the separation between the distributions: this is equal to the difference in means between the distributions, divided by the root mean square of each distribution added in quadrature
 \end{enumerate}
 
-The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two distributions are separated by a distance of $2.4 \sigma$ - the significant overlap between the two distribution indicates that there is some chance of misidentification. Applying the same procedure to verify the separation between kaons and protons gives the results shown in Figure \ref{fig:kaonprotonsep}. Here we see that the two distributions do not significantly overlap and have a separation of $4.7 \sigma$, meaning that at this momentum and angle, protons are very unlikely to be misidentified as kaons, and vice versa.
+The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two distributions are separated by a distance of $1.9 \sigma$ - the significant overlap between the two distribution indicates that there is some chance of misidentification. Applying the same procedure to verify the separation between kaons and protons gives the results shown in Figure \ref{fig:kaonprotonsep}. Here we see that the two distributions do not significantly overlap and have a separation of $4.7 \sigma$, meaning that at this momentum and angle, protons are very unlikely to be misidentified as kaons, and vice versa.
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/kaonPionSep.pdf}}
-\caption[Particle identification separation for 7 GeV/c pions and kaons]{Histogram showing the logarithm of the ratios of likelihoods between 7 GeV/c kaons and pions for both ``true" kaons and ``true" pions. The two distributions have a separation of 2.4 $\sigma$.}
+\caption[Particle identification separation for 7 GeV/c pions and kaons]{Histogram showing the logarithm of the ratios of likelihoods between 7 GeV/c kaons and pions for both ``true" kaons and ``true" pions. The two distributions have a separation of 1.9 $\sigma$.}
 \label{fig:kaonpionsep} 
 \end{figure}
 
@@ -39,7 +42,7 @@ The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two d
 \subsection{Momenta}
 
 At increasing momenta, it becomes increasingly hard to distinguish between particles, as their velocities converge to $c$ and their Cherenkov angles in a given aerogel converge to the same value. 
-This can be seen in Figure \ref{fig:changle}, which plots the Cherenkov angles of different particles as a function of their momentum.
+This can be seen in Figure \ref{fig:changles}, which plots the Cherenkov angles of different particles as a function of their momentum.
 It is particularly hard to distinguish between pions and kaons, but easier to distinguish protons from kaons, and easier still to distinguish protons from pions.
 
 \begin{figure}[]
@@ -69,7 +72,7 @@ This is shown in Figure \ref{fig:centeredMis}.
 \label{fig:centeredMis} 
 \end{figure}
 
-We see that as momentum increases, we steadily become worse and worse at distinguishing between pions and kaons - we get a separation greater than $2 \sigma$ past momenta of 7 GeV/c, and at a momentum of 14 GeV/c, we do no better than chance at determining whether a particle is a kaon or pion.
+We see that as momentum increases, we steadily become less effective at distinguishing between pions and kaons - we get a separation greater than $2 \sigma$ past momenta of 7 GeV/c, and at a momentum of 14 GeV/c, we do no better than chance at determining whether a particle is a kaon or pion.
 We see that protons remain easily distinguishable from pions and kaons we reach approximately 12 or 13 GeV/c respectively. 
 
 \subsection{Angles}
@@ -89,9 +92,10 @@ This is because at this point, the photon rings partially fall off of the detect
 \caption[Plot of the separation between the distributions of computed log-likelihood ratios of different particle pairs, over a range of angles. ]{Plot of the separation between the distributions of computed log-likelihood ratios of different particle pairs, over a range of angles. Each particle is simulated 10,000 times using the Geant4 simulation as entering the aerogel layers with an angle with respect to the downstream axis. \TODO{still this}}\label{fig:angleSeps}
 \end{figure}
 
+
 \section{Multi-particle events}
 \label{sec:multiparticle}
-Although so far only single-photon ring events have been evaluated, it is often the case that the photons from several different particles will be detected at the same time in the ARICH detector.
+Although so far only single-photon ring events have been evaluated, it is often the case that the photons from several different particles will be detected at the same time in the ARICH detector. 
 It is necessary that the likelihood particle identification technique is able to separate out multi-particle events as well. 
 
 To accomplish this, the simulation was modified to take in an array of different particle momenta, positions, and directions, rather than just one set of parameters.
@@ -100,23 +104,19 @@ Because the photon probability distribution functions for each particle are inde
 Next, for every possible combination of these particle hypotheses, we sum together the corresponding particles' photon distribution histograms and calculate a log-likelihood by comparing the sum to the event data.
 In total, for $n$ detected particles and $p$ possible particle hypotheses, we must simulate $p \times n$ photon distribution functions, do $p^n$  log-likelihood comparisons with our event data, and select the combination with the minimum negative log-likelihood from these $p^n$ options. 
 
-This process is done here:
+An example of the result of this process demonstrated in Figure \ref{fig:multiParticle}. A three-particle event was simulated, consisting of one kaon, one pion, and one proton. 
+Each particle had a momentum randomly drawn from a Gaussian with a mean of $10$ GeV/c and a standard deviation of $2$ GeV/c, with directions thrown from a Gaussian with a mean of $0$ rad and standard deviation of $0.3$ rad, and with initial positions drawn from a Gaussian with a mean of $0$ and a standard deviation of $2$ cm.
+The values for their momenta, positions, and directions were then used as inputs to the fast simulation, and the likelihoods of each of the 27 possible particle combinations were calculated.
+In this particular example, the particle identification code was able correctly the identify the ``true" combination of particle types.
+However, this was an arbitrary test - real experimental data would not necessarily resemble distributions such as this.
 
- \TODO{Include here the result of running my script to fit multi-particle events, but actually write down the log-likelihoods I get. Also, include figure showing generated multi-particle event, overlayed on the corresponding ``true" photon distribution }.
- 
-This particular example was created using random throws of 3 particles with momenta drawn from a Gaussian with mean $\mu$ and standard deviation $\sigma$, and with directions thrown from a Gaussian with mean $\mu$ and standard deviation $\sigma$, a choice of inputs that is entirely arbitrary. \TODO{Include the actual values of $\mu$ and $\sigma$}
-In order to get a useful measure of our ability to measure multi-particle events, it is necessary that we better understand what these events might look like in a real experiment.
+\begin{figure}[]
+\centering
+\resizebox{0.9\textwidth}{!}{\includegraphics{./figs/pdfMultiParticle.pdf}}
+\caption[Simulated event data and expected photon distribution for a three-particle event]{Histogram of photons detected in a simulated event (shown in red) overlaid on the photon distribution of the best-fit particle hypothesis for the data, corresponding to a pion, a kaon, and a proton.}
+\label{fig:multiParticle} 
+\end{figure}
 
-To find out what these multi-particle events may look like in a typical experiment, the Geant4 simulation of EMPHATIC was used to simulate a beam of 10,000 protons with a momentum of 30 GeV/c.
-The protons were generated directly upstream of a 5.0 cm $\times$ 5.0 cm, 2.0 cm thick carbon target, and were directed along the $z$-axis of the experiment.
-Geant4 libraries were included to account for elastic scattering, particle decays, hadron physics, stopping physics, and Cherenkov radiation, among other processes. 
-The output of the simulation contains information about the identities and trajectories of the particles involved. 
-Of interest to this project are specifically the instances where a secondary charged particle enters the aerogel at a velocity sufficient to produce Cherenkov photons.
-
-\TODO{Include matrices of what particles we find as the highest-momentum particles vs. second-highest momentum particle. Key points: The most typical particle-particle combinations are higher-momenta protons with lower-momenta pions, or two pions.} 
-
-It was found that out of the 10,000 events simulated, 24 contained positively charged Kaons entering the aerogel.
-\TODO{If I have some time I'll look into the Kaon events.}
 
 \endinput
 

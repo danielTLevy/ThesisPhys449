@@ -13,7 +13,7 @@ Over the past 60 years, physicists have built increasingly sophisticated and sen
 
 There are three flavors of neutrinos: the electron neutrino $\nu_e$, the muon neutrino $\nu_\mu$, and the tau neutrino $\nu_\tau$.
 The flavor of the neutrino determines what interactions it might have.
-In 1998, the Super-Kamiokande detector in Japan observed clear evidence of neutrino oscillation: as neutrinos of one flavor travel over a large distance, it has some probability of later being observed as a neutrino of another generation.
+In 1998, the Super-Kamiokande detector in Japan observed clear evidence of neutrino oscillation: as neutrinos of one flavor travel over a large distance, they have some probability of later being observed as neutrinos of another generation.
 This implied that neutrinos have a nonzero mass, a result not predicted by the Standard Model.
 The theorized explanation for neutrino oscillation is that each neutrino flavor actually exists as some superposition of 3 different mass states. As a neutrino travels over large distances, the differences in phases of the mass states results in a shifting probability of detecting each neutrino flavor.
 The relationship between mass and flavor states is governed by the following relation:
@@ -34,19 +34,20 @@ U_{\tau 1} & U_{\tau 2} & U_{\tau 3}
 \end{pmatrix}
 \end{equation}
 
-Here, U is a $3 \times 3$ unitary matrix, known as the Pontecorvo–Maki–Nakagawa–Sakata (PMNS) Matrix. The matrix can be characterized by 4 parameters: $\theta_{12}, \theta_{23}$, and $\theta_{13}$, which are the mixing angles, and $\delta_{CP}$, known as the CP-violating phase \cite{pdg2018}. The probability of a neutrino oscillating from one flavor to another is governed by the distance travelled, the mixing angles, and $\Delta m_{ij}^2$, the squared mass difference between neutrino states. 
-
+Here, U is a $3 \times 3$ unitary matrix, known as the Pontecorvo–Maki–Nakagawa–Sakata (PMNS) Matrix. The matrix can be characterized by 4 parameters: $\theta_{12}, \theta_{23}$, and $\theta_{13}$, which are the mixing angles, and $\delta_{CP}$, known as the CP-violating phase \cite{pdg2018}. To first order, the probability of a neutrino oscillating from one flavor to another is governed by the mixing angles, as well as the term $\sin^2(\Delta m_{ij}^2 L/(4E))$, where $L$ is the distance travelled, $E$ is the neutrino energy, and $\Delta m_{ij}^2$, is the squared mass difference between neutrino states $i$ and $j$.
 
 There are many open-ended questions regarding neutrinos.
-The mixing angles of the PMNS matrix and the squared mass differences remain to be more accurately measured.
-Because only the differences in masses are known, the actual ordering and absolute values of the masses are unknown.
+Current experiments have measured the mixing angles and the squared mass differences between states.
+We do not currently know the ordering of the neutrino masses,  i.e.\ whether $\Delta m_{32}^2  < 0$ or $\Delta m_{32}^2 > 0$.
+Due to the $\sin^2$ term in the oscillation probability, we are insensitive to the sign of $\Delta m_{32}^2$,
+but future experiments will be able to measure second order effects and determine the neutrino mass hierarchy.
 It is unknown whether neutrinos are their own anti-particles (i.e. whether the neutrino is a Majorana fermion), or if the antineutrino is a distinct particle (i.e. a Dirac fermion).
 It is uncertain whether $\sin(\delta_{CP})$ is consistent with zero: If it is nonzero, then that may explain the asymmetry between the amount of matter and antimatter in the universe \cite{neutrinoCP}.
 
 The next generation of neutrino experiments aim to answer all of these questions (and more) to a high degree of precision - they include the Deep Underground Neutrino Experiment (DUNE) \cite{duneDesign} and the Hyper-Kamiokande experiment \cite{hyperKDesign}.
 In both experiments, a large flux of neutrinos is generated with a particle accelerator hundreds of kilometers away from a large neutrino detector.
 When a sufficiently energetic particle beam hits a target, the collision produces secondary particles: mostly charged pions and kaons.
-Magnetic horns are used to direct these secondary particles in the direction of the distant detector. \TODO{introduce the term ``hadron"} 
+Magnetic horns are used to direct these secondary particles in the direction of the distant detector.
 The charged pions will decay in flight as follows:
 
 \begin{equation}
@@ -61,17 +62,24 @@ K^+ \rightarrow \mu^+ + \nu_\mu \text{,} \quad  K^+ \rightarrow \pi^+ + \pi^0  \
 
 There are corresponding charge-conjugate decays for the $\pi^-$ and $K^-$. 
 As these secondary particles decay, a large number of resulting neutrinos are sent in the direction of the detector, where only a very small fraction will be detected.
+Measurements from the distant detector are then compared to measurements made in a detector nearer to the source of neutrinos, and the ratio between the two is analyzed.
+
+In addition to accelerator-based neutrinos, some experiments will look at atmospheric neutrinos.
+These are neutrinos resulting from the decay of products of the reactions of cosmic rays with the atmosphere. 
+Due to the different distances travelled by the neutrinos and different energies involved, these experiments are sensitive to different effects than accelerator-based experiments.
 
 These next-generation neutrino experiments have a far higher level of statistics than in neutrino experiments of the past, due to the massive size of the detectors.
 Because the error is no longer dominated by statistical error, decreasing any systematic error is increasingly important.
-In such experiments, the two major sources of systematic error arises from uncertainty in the neutrino-nucleus interaction, and uncertainty in calculations of the neutrino flux.
+In such experiments, two sources of systematic error arises from uncertainty in the neutrino-nucleus interaction, and uncertainty in calculations of the neutrino flux.
+The uncertainty in neutrino flux becomes particularly important in studies of neutrino-nucleus interactions and CP violation in atmospheric neutrinos, where measurements are only made in a single detector, rather than looking at the ratio between the near and far detectors. 
 The primary contribution to the uncertainty of neutrino flux lies in uncertainty in the hadron production \cite{hyperKDesign}.
+
 
 The NA61/SHINE experiment, located at CERN, has been very successful in measuring hadron production resulting from collisions of particles from the Super Proton Synchrotron onto various targets \cite{na61}.
 These measurements significantly reduced neutrino flux uncertainties in T2K, an ongoing accelerator-based neutrino oscillation experiment \cite{na61T2K}. 
 However, the momenta of the measured beams are constrained to between 13 and 160 GeV/c.
-This does not allow for the calculations of low-momentum hadron reinteractions: in addition to hadrons directly decaying into neutrinos, some hadrons may reinteract with the target, magnetic horns, or beamline of the detector, affecting the neutrino flux.
-Furthermore, some neutrino experiments aim to measure atmospheric neutrinos (neutrinos resulting from the decay of products of the reaction of cosmic rays with the atmosphere), and the NA61/SHINE data does not cover the associated lower-momentum hadron interactions.
+This does not aid in calculations of low-momentum hadron reinteractions: in addition to hadrons directly decaying into neutrinos, some hadrons may reinteract with the target, magnetic horns, or beamline of the detector, affecting the neutrino flux.
+While these interactions may be estimated via Monte Carlo methods, different models will give significantly different predictions. Therefore, additional measurements are needed to constrain the models and reduce the hadron production uncertainty. Furthermore, the lower-momentum hadron interactions found in atmospheric neutrinos experiments are not covered in the range of the NA61/SHINE data, so there is a need to further constrain these interactions.
 
  \section{\ac{EMPHATIC}}
 
