@@ -125,10 +125,8 @@ Due to refraction, the positions at which the photon rings are detected are slig
   \label{fig:photonPdfs}
 \end{figure}
 
-
-\TODO{Might want to briefly mention that I added in mirrors as an option to the simulation.}
-
 \section{Particle Identification Script}
+\label{sec:multi}
 Following the creation of the fast simulation, a script was written to conduct particle identification on given experimental data.
 The script takes in as input a 2-dimensional histogram of photon hits, the measured position, direction, and momentum of a the event, and generates corresponding simulated photon distributions using the fast ARICH simulation.
 Using the technique described in Section \ref{sec:particleIdentification}, the script calculates the negative log-likelihood for each particle type, and outputs the most likely particle that generated the event.
