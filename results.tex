@@ -11,17 +11,17 @@ By ignoring all irrelevant physical processes in the simulation and removing the
 
 \section{Particle Separation}
 It is necessary to establish the effectiveness of the likelihood particle identification technique under different conditions.
-As an example, let us suppose we want to determine how well this likelihood approach works on a particle that is 7 GeV and measured to enter the center of the aerogel and travel directly in the $z$-direction.
+As an example, let us suppose we want to determine how well this likelihood approach works on a particle that is 7 GeV/c and measured to enter the center of the aerogel and travel directly in the $z$-direction.
 To check the certainty with which this technique can identify whether this is a pion or kaon, I applied the following procedure:
 
 \begin{enumerate}
-\item Generate 10,000 pions with the given position, direction, and momenta in Geant4, project the generated Cherenkov photons onto a plane representing the detector, apply efficiency corrections, and store the resulting histogram of detected photon hits for each pion. 
+\item Generate 10,000 ``true" pions with the given position, direction, and momenta in Geant4, project the generated Cherenkov photons onto a plane representing the detector, apply efficiency corrections, and store the resulting histogram of detected photon hits for each ``true" pion event. 
 \item Do the same, but with simulated kaons instead of pions.
 \item Given the particle initial position, initial direction, and momentum, use the fast ARICH simulation to generate two photon probability distribution histograms, corresponding to pions or kaons.
 \item For each event simulated using Geant4, compute the negative log-likelihood of the event histogram with respect to the photon probability distribution functions of each particle hypothesis.
-\item For each true particle type, plot a histogram of the log of the ratio of likelihoods between the two hypotheses.
+\item For each ``true" particle type, plot a histogram of the log of the ratio of likelihoods between the two hypotheses.
 This is just the differences between the negative log-likelihoods of the two hypotheses.
-\item Look at the separation between the distributions: this is equal to the difference in means between the distributions, divided by the root mean square of each distribution added in quadrature
+\item Look at the separation $\sigma$ between the distributions: this is equal to the difference in means between the distributions, divided by the root mean square of each distribution added in quadrature
 \end{enumerate}
 
 The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two distributions are separated by a distance of $1.9 \sigma$ - the significant overlap between the two distribution indicates that there is some chance of misidentification. Applying the same procedure to verify the separation between kaons and protons gives the results shown in Figure \ref{fig:kaonprotonsep}. Here we see that the two distributions do not significantly overlap and have a separation of $4.7 \sigma$, meaning that at this momentum and angle, protons are very unlikely to be misidentified as kaons, and vice versa.
@@ -39,9 +39,9 @@ The result of this procedure is shown in Figure \ref{fig:kaonpionsep}. The two d
 \label{fig:kaonprotonsep} 
 \end{figure}
 
-\subsection{Momenta}
+\subsection{Momentum Dependence of Performance}
 
-At increasing momenta, it becomes increasingly hard to distinguish between particles, as their velocities converge to $c$ and their Cherenkov angles in a given aerogel converge to the same value. 
+At increasing momenta, it becomes increasingly hard to distinguish between particles, as their velocities converge to $c$ and their Cherenkov angles in a given radiator converge to the same value. 
 This can be seen in Figure \ref{fig:changles}, which plots the Cherenkov angles of different particles as a function of their momentum.
 It is particularly hard to distinguish between pions and kaons, but easier to distinguish protons from kaons, and easier still to distinguish protons from pions.
 
@@ -68,15 +68,15 @@ This is shown in Figure \ref{fig:centeredMis}.
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/centeredMisidentification.pdf}}
-\caption[Plot of misidentification rate of the likelihood approach to particle identification over a spectrum of momenta.]{Plot of misidentification rate of the likelihood approach to particle identification over a spectrum of momenta. Each ``true" particle type was simulated 10,000 times using Geant4, and were simulated as entering the aerogel layers with an angle $\theta = 0$ with respect to the downstream axis.}
+\caption[Plot of misidentification rate of the likelihood approach to particle identification over a spectrum of momenta.]{Plot of misidentification rate of the likelihood approach to particle identification over a spectrum of momenta. Each ``true" particle type was simulated 10,000 times using Geant4, and were simulated as entering the aerogel layer with an angle $\theta = 0$ with respect to the downstream axis.}
 \label{fig:centeredMis} 
 \end{figure}
 
 We see that as momentum increases, we steadily become less effective at distinguishing between pions and kaons - we get a separation greater than $2 \sigma$ past momenta of 7 GeV/c, and at a momentum of 14 GeV/c, we do no better than chance at determining whether a particle is a kaon or pion.
 We see that protons remain easily distinguishable from pions and kaons we reach approximately 12 or 13 GeV/c respectively. 
 
-\subsection{Angles}
-When particles enter the aerogel at nonzero angles with respect to the beamline axis, a number of intractable effects affect the resulting photon distribution. 
+\subsection{Angular Dependence of Performance}
+When particles enter the aerogel at nonzero angles with respect to the beamline axis, a number of factors complicate the resulting photon distribution. 
 Particles travel further through the aerogel at higher angles and may produce more photons, photons refract differently at higher angles, and the resulting Cherenkov cones may become smeared out over more PMT pixels. 
 To evaluate the effectiveness of this likelihood approach across different angles, the procedure described in the preceding section was followed over 5 angular bins ranging from 0 to 0.4 radians.
 The resulting particle separations are shown in Figure \ref{fig:angleSeps}.
@@ -84,12 +84,12 @@ The resulting particle separations are shown in Figure \ref{fig:angleSeps}.
 It is clear that as the angle of the incident particle increases, we become better able to separate out our particles from one another up until a certain point.
 This is likely because the photon rings are ``smeared out" over several different PMT pixels, allowing for finer details to be measured. 
 However, past 0.35 radians we see that our ability to distinguish particles significantly decreases.
-This is because at this point, the photon rings partially fall off of the detector plane, and with fewer detected photons, there is less information to distinguish particles.
+This is because, at this point, the photon rings partially fall off of the detector plane, and with fewer detected photons, there is less information to distinguish particles.
 
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/xAngleSeps.pdf}}
-\caption[Plot of the separation between the distributions of computed log-likelihood ratios of different particle pairs, over a range of angles. ]{Plot of the separation between the distributions of computed log-likelihood ratios of different particle pairs, over a range of angles. Each particle is simulated 10,000 times using the Geant4 simulation as entering the aerogel layers with an angle with respect to the downstream axis. \TODO{reword this}}\label{fig:angleSeps}
+\caption[Plot of the separation between the distributions of computed log-likelihood ratios of different particle pairs, over a range of angles. ]{Plot of the separation between the distributions of computed log-likelihood ratios of different particle pairs, over a range of angles. For each angle, 10,000 particles of each type were simulated using the Geant4 simulation. The ``x-angle" is the angle of the simulated particle with respect to the downstream axis.}\label{fig:angleSeps}
 \end{figure}
 
 

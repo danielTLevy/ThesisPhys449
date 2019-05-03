@@ -11,7 +11,7 @@ When a charged particle travels through a dielectric medium (known as a radiator
 This process is known as Cherenkov radiation \cite{cherenkov}.
 If we define the particle velocity to be $v_p$ and $\beta = v_p / c$, then in a time $t$, the particle will travel a distance $\beta ct$.
 In that same amount of time, the photons emitted in the radiator will have travelled a distance $(c/n)t$.
-The geometry of this emission is shown in in Figure \ref{fig:cherenkov}.
+The geometry of this emission is shown in Figure \ref{fig:cherenkov}.
 This creates a wavefront of light emitted obeying the following relation:
 \begin{equation}
     cos(\theta) = \frac{1}{\beta n}
@@ -28,14 +28,14 @@ It can be seen that these emissions all produce a wavefront along BC, giving a c
 \label{fig:cherenkov} 
 \end{figure}
 
-The energy emitted via Cherenkov radiation by a particle of charge $q$ as it moves a distance $dl$ through a radiator is given by the Frank-Tamm formula \cite{frankTamm}:
+The energy $dW$ emitted via Cherenkov radiation by a particle of charge $q$ as it moves a distance $dl$ through a radiator is given by the Frank-Tamm formula \cite{frankTamm}:
 \begin{equation}
     \label{eq:frankTamm}
     \frac{dW}{dl} = \frac{q^2}{c^2}\int_{\beta n > 1} \omega  \left(1 - \frac{1}{\beta^2n(\omega)^2}\right)d\omega
 \end{equation}
 
 In this formula, $\omega$ is the angular frequency of the light.
-If we neglect the frequency dependence of the index of refraction, then we can use this equation to extract the expected number of photons emitted per length $dl$ over a range of frequencies from $\lambda_1$ to $\lambda_2$:
+If we neglect the frequency dependence of the index of refraction, then we can use this equation to extract the expected number of photons emitted per length $dl$ over a range of wavelengths from $\lambda_1$ to $\lambda_2$:
 
 \begin{equation}
     \label{eq:photonNumber}
@@ -50,11 +50,9 @@ Here, $\alpha$ is the fine structure constant ($\approx \frac{1}{137}$).
 \section{Aerogel Ring Imaging Cherenkov Detectors}
 \label{sec:ARICH}
 The relationship between particle velocity through a radiator and photon angle of emission (Equation \ref{eq:cherenkovAngle}) can be exploited for particle identification.
-An Aerogel Ring Imaging Cherenkov (ARICH) detector consists of a silica aerogel radiator, and an array of photomultiplier tubes (PMTs), which can detect Cherenkov radiation of charged particles passing through the aerogel.
+An Aerogel Ring Imaging Cherenkov detector consists of a silica aerogel radiator, and an array of photomultiplier tubes (PMTs), which can detect Cherenkov radiation of charged particles passing through the aerogel.
 Silica aerogel is a substance made of a network of silica (SiO$_2$) clusters interspersed with nanopores of air \cite{aerogelRefraction}.
 During production, the refractive index of aerogel can be precisely tuned \cite{aerogelRefraction}, and the wavelength-dependency of the refractive index is understood \cite{aerogelWavelength}. 
-
-
 
 High-velocity charged particles produced in the collision of the hadron beam with a target will emit cones of Cherenkov radiation as they travel through the aerogel, leading to an elliptically shaped set of detected photons.
 As the angle of emission depends on the velocity of a particle, the radii of the ellipses depend just on the velocity of the particle, the distance between the point of emission and the detector, and the angle of the incident charged particle.
@@ -64,14 +62,14 @@ Looking at Equation \ref{eq:cherenkovAngle}, we see that with a lower index of r
 A rapidly changing angle would allow for the velocity of a particle to be better resolved, and so the aerogel with an index of refraction of 1.035 was chosen to be used in the detector.
 
 By averaging over several photons emitted by a single particle, we can increase our angular resolution.
-With a thicker slab of aerogel, a charged particle travels a greater distance and is likely to emit a greater number of photons.
+If a charged particle travels through a thicker slab of aerogel, it is likely to emit a greater number of photons.
 However, this means that the point of emission of the photon can vary more, reducing the angular resolution.
-To combat this, \ac{ARICH} detectors can use two or more layers of aerogel with differing indices of refraction, with the layer closest to the detector having a higher index of refraction \cite{belleArich}.
+To combat this, ARICH detectors can use two or more layers of aerogel with differing indices of refraction, with the layer closest to the detector having a higher index of refraction \cite{belleArich}.
 The photons emitted in the first layer will be emitted at a smaller angle than those from the second layer, and ultimately arrive on the same ring on the photon detector array.
-The Cherenkov radius of a photon emitted from a charged particle travelling directly downstream at a velocity $\beta$, through a layer of aerogel with an index of refraction $n$ and a distance $d$ from the detector plane is given by:
+The radius $r$ of the detected ring of Cherenkov photons emitted from a charged particle travelling directly downstream at a velocity $\beta$, through a layer of aerogel with an index of refraction $n$ and a distance $d$ from the detector plane is given by:
 
 \begin{equation}
-d\tan\left(\arccos\left(\frac{1}{\beta n}\right)\right)
+r = d\tan\left(\arccos\left(\frac{1}{\beta n}\right)\right)
 \end{equation}
 
 For EMPHATIC, the slabs of aerogel were chosen to be 2 cm thick, and the first layer was chosen to be placed with its centre at a distance of 20 cm from the photon detector plane.
@@ -79,10 +77,10 @@ If the first layer has an index of refraction of $n = 1.035$, then to most close
 Since the start of this project, an aerogel with an index of refraction of 1.03 has become available.
 However, because this was not available earlier, all subsequent analysis assumes aerogel indices of 1.035 and 1.045.
 
-The \ac{PMT}s used in the detectors function by creating a rapid cascade of electrons and a corresponding signal upon being struck by a photon.
+The PMTs used in the detectors function by creating a rapid cascade of electrons and a corresponding signal upon being struck by a photon.
 The quantum efficiencies depend on the wavelength of the incident light, and are well-characterized by the manufacturer.
-After each photon detection, there is some deadtime in which a PMT pixel cannot detect any other incident photons.
-Thus when multiple Chernekov photons emitted during a single event strike the same PMT pixel, only one will be detected.
+After each photon detection, there is some dead time in which a PMT pixel cannot detect any other incident photons.
+Thus when multiple Cherenkov photons emitted during a single event strike the same PMT pixel, only one will be detected.
 
 \section{Optical Effects in the Detector}
 \label{sec:optics}
@@ -94,9 +92,9 @@ The angular distribution of scattered photons is proportional to $1 + \cos^2(\th
 
 \section{Particle Identification}
 \label{sec:particleIdentification}
-In order to identify particles using the \ac{ARICH} detector, a particle likelihood method may be used \cite{richImpact, belleArich}.
+In order to identify particles using the ARICH detector, a particle likelihood method may be used \cite{richImpact, belleArich}.
 For this method, we take the measured momentum of the particle, and determined the expected velocity for different candidate particles masses.
-The candidate particles of interest for this study are protons, with a mass of 0.938 GeV/c$^2$, pions, with a mass of 0.140 GeV/c$^2$, and kaons, with a mass of 0.494 GeV/c$^2$\TODO{cite pdg}.
+The candidate particles of interest for this study are protons, with a mass of 0.938 GeV/c$^2$, pions, with a mass of 0.140 GeV/c$^2$, and kaons, with a mass of 0.494 GeV/c$^2$ \cite{pdg2018}.
 To calculate the velocity, we then use the following relativistic equation, assuming units where $c = 1$:
 
 \begin{equation}
@@ -107,7 +105,7 @@ To calculate the velocity, we then use the following relativistic equation, assu
 For each velocity hypothesis, we can run many Monte Carlo simulations of particles moving at that velocity, with the same measured initial trajectory as the input event data, and get the distribution of the resulting photons.
 For each pixel of the detector, this procedure will give a value $\lambda_i(\beta)$, equal to the expected number of photons striking pixel $i$ in the detector due to a particle of velocity $\beta$. 
 
-For a given experimental event, we will detect $N_i$ photons in each pixel $i$: because of the deadtime of the detector,  we just know whether $N_i = 0$ or $N_i > 0$.
+For a given experimental event, we will detect $N_i$ photons in each pixel $i$: because of the dead time of the detector,  we just know whether $N_i = 0$ or $N_i > 0$.
 If we assume that the number of photons detected by a PMT pixel is given by a Poisson distribution, then the probability that zero photons strike pixel $i$ is given by:
 \begin{equation}
 P_i(N_i=0; \beta) = e^{-\lambda_i(\beta)}

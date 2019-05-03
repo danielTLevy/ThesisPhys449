@@ -13,7 +13,7 @@ Although multi-particle fitting was implemented and briefly verified in Section 
 We do not know the rate at which we see multi-particle events, and we do not know what particle species we would expect to see in coincidence with each other.
 For instance, if we are likely to frequently see both high-momentum kaons as well as high-momentum pions, then we may encounter difficulty in fitting these photon rings.
 
-To find out what these multi-particle events may look like in a typical experiment, we could use the Geant4 simulation of EMPHATIC to simulate a typical experiment.
+To find out what these multi-particle events may look like, we could use the Geant4 simulation of EMPHATIC to simulate a typical experiment.
 Geant4 contains libraries to simulate elastic scattering, particle decays, hadron physics, stopping physics, Cherenkov radiation, and more, so such a simulation should well-approximate the types of events we would expect to see.
 For instance, we could set up a simulation of protons colliding with a carbon target, apply our particle identification technique to the photon distributions of each event where multiple secondary charged particle enters the aerogel at a velocity sufficient to produce Cherenkov photons, and examine what events cause us to misidentify particles.
 This would help inform us on the practical effectiveness of the method outlined in this report.
@@ -21,12 +21,12 @@ This would help inform us on the practical effectiveness of the method outlined 
 \section{High-Angle Photons}
 As seen in Figure \ref{fig:angleSeps}, we lose the ability to distinguish between different particles when they enter the aerogel at sufficiently high angles, as the photon rings begin to fall out of the angular acceptance of the photon detector.
 One proposed solution to this issue is the addition mirrors to the sides of the detector, which would reflect high-angle photons onto the PMT array. 
-While this would allow us to identify high-angle particles, it would increase the background from Rayleigh-scatter photons, as we typically see a broad angular range of scattered photons.
+While this would allow us to identify high-angle particles, it would increase the background from Rayleigh-scattered photons, as we typically see a broad angular range of scattered photons.
 
-This addition was incorporated as an optional parameter to the fast ARICH simulation has an added option to include these mirrors.
+The addition of such a mirror was incorporated as an optional parameter to the fast ARICH simulation.
 Photons that would ordinarily exit out of the sides of a defined 30 cm $\times$ 30 cm region get reflected back in.
 While this has been fully implemented, it remains to be seen how this affects our ability to separate particles.
-Determining effectiveness of this approach also depends on knowledge of what we expect to see in an experimental event - if high-angle particles are rare, the increases photon background may render this approach counterproductive.
+Determining the effectiveness of this approach also depends on knowledge of what we expect to see in an experimental event; if high-angle particles are rare, the increased photon background may render this approach counterproductive.
 
 \section{Momentum Error}
 The particle identification method outlined so far involves fitting at the candidate particle velocities corresponding to the measured momentum of the unidentified particle.
@@ -41,14 +41,14 @@ However, this would yield three or five simulations per particle, rather than ju
 \section{Further Extensions}
 Several optical processes were ignored in the fast ARICH simulation, and adding these in may improve the particle fitting. 
 Refraction was implemented at the boundaries between the two aerogels as well as the boundaries between aerogel and air, as these were thought to be the main processes altering the photon distributions.
-Additional effects come from the reflection at the boundaries between media - this effect was assumed to have minimal impact, as the amplitude of the reflected light increases with respect to the angle of incidence with the boundary, and non-scattered photons that would make up the Cherenekov photon ring would have a relatively low angle.
+Additional effects come from the reflection at the boundaries between media - this effect was assumed to have minimal impact, as the amplitude of the reflected light increases with respect to the angle of incidence with the boundary, and non-scattered photons that would make up the Cherenkov photon ring would have a relatively low angle.
 
 In the fast simulation, the index of refraction of the aerogel was assumed to be constant for every wavelength of light.
 However, this is a simplification: the refractive index decreases with increasing wavelength, and this effect must be experimentally measured to be parametrized \cite{aerogelrefrac}.
 
 The current modelling of the detector is quite crude - a more sophisticated setup could be defined to account for the real dead space of the PMTs, the non-uniformity of their pixel size, and the glass boundary between the air and the PMT.
 
-While all of the these modifications would increase the accuracy of the fast simulation, they would necessarily increase its runtime. 
+While all of these modifications would increase the accuracy of the fast simulation, they would necessarily increase its runtime. 
 Thus, each of these effects would have to be carefully assessed to determine whether the benefit in particle identification is sufficient to justify the increased computation time.
 
 Each particle in the simulation is independent, so the simulation could potentially be modified to process each particle in parallel. 
@@ -56,7 +56,17 @@ Alternatively, because each experimental event is independent, this technique fo
 
 \section{Alternate Approaches}
 If it is determined that this Monte Carlo simulation-based likelihood approach to particle identification is too computationally expensive to perform, other approaches may be applied.
-\TODO{Cite alternate approaches used by the BELLE II and LHC-B experiments}
+As an example, the Belle II experiment uses a different approach to particle identification in its ARICH detector \cite{belleArich}.
+In the Belle II experiment, two statistics are measured for each event: the average angle of emission of the detected photons, and the number of photons detected.
+The likelihood of each particle hypothesis is then computed by comparing each hypothesis' expected values and errors for these two statistics to the measured values.
+This approach is expected to be far faster than the approached described in this report, as it does not involve a full simulation run for each event.
+However, it is not expected to be as accurate as a full Monte Carlo simulation-based approach.
+The approach used in this report maximizes the amount of information we can fit over: instead of just comparing the expected angle of emission of photons, it compares the full expected distribution. 
+
+Another advantage of a Monte Carlo simulation-based approach is that is more extensible: changing the detector configuration does not necessitate changing the analysis method.
+Instead, any changes can just be added in to the Monte Carlo simulation, and the same likelihood approach may be used.
+
+However, if the approach described in this report proves to be too computationally expensive to run on each event, it may be better to use a faster approach such as the one used by the Belle II experiment, as it may give perfectly acceptable results for the momentum range we are interested in.
 
 
 \endinput 

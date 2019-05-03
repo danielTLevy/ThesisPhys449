@@ -5,7 +5,7 @@
 \label{ch:Methods}
 To run particle identification on each event, a fast simulation of the optical photon distributions in the EMPHATIC ARICH detector was developed.
 The simulation of the ARICH detector was created using \textsc{ROOT}: an object-oriented scientific computing framework based off C++ and developed at CERN \cite{root}.
-\textsc{ROOT} is used for its ease of use, the high degree of organization and extensibility that comes from its object-oriented nature, and its high efficiency when compiled.
+\textsc{ROOT} is used for its ease of use, the high degree of organization and extensibility that comes from its object-oriented nature, and its high efficiency after being compiled.
 
 \section{Initial Simulation}
 \label{sec:experiment}
@@ -21,7 +21,7 @@ If we define the $z$ axis to be the downstream direction, then the inputs to the
 The simulation generates 10,000 such particles whose initial positions and directions are randomly drawn from a Gaussian distribution with the specified mean values and errors.
 
 A layer of aerogel was defined in the simulation as a 2 cm thick, 10 cm by 10 cm volume, with a refractive index of 1.035, placed with its back edge at $z=0$.
-For each simulated particle with a given velocity $\beta$, we use equation \ref{eq:photonNumber} to calculate the mean number of photons emitted per unit length, and generate a number of photons equal to this value multiplied by the distance the particle has to travel through the aerogel.
+For each simulated particle with a given velocity $\beta$, we use equation \ref{eq:photonNumber} to calculate the mean number of photons emitted per unit length, and generate a number of photons equal to this value multiplied by the distance the particle travels through the aerogel.
 The initial position of these photons are randomly distributed along the path travelled by the particle through the aerogel.
 Their polar angle $\theta$ with respect to the direction of travel of the particle is given by equation \ref{eq:cherenkovAngle}, and their azimuthal angle is randomly drawn from between 0 and $2\pi$.
 \begin{comment}
@@ -31,7 +31,7 @@ This is given by \TODO{Include here Rodrigue's rotation formula, and how it is a
 
 The EMPHATIC ARICH will include a 6 $\times$ 6 array of H12700 PMT assemblies. 
 Each assembly has dimensions of 48.5 mm $\times$ 48.5 mm, and contains $8 \times 8$ separate pixels, positioned with a packing density of 87\% \cite{H12700}.
-The PMT assemblies are expected to be arranged onto a 30 cm $\times$ 30 cm plane with a packing efficiency of approximately $80\%$, and be placed 20 cm downstream of the center of the first layer of aerogel.
+The PMT assemblies are expected to be arranged onto a 30 cm $\times$ 30 cm plane with a packing efficiency of approximately $80\%$ and be placed 20 cm downstream of the center of the first layer of aerogel.
 To model the photon detector array, we simply project the photons downstream onto a 30 cm $\times$ 30 cm plane and record the hits on a 2-dimensional histogram with $48 \times 48$ evenly-sized bins.
 The number of photons counted in each bin is scaled by a factor of $80\% \times 87\%$ to account for the packing efficiencies.
 
@@ -41,19 +41,19 @@ If we linearly extrapolate the quantum efficiency curve, we see that we do not e
 From Equation \ref{eq:frankTamm}, we see that the Cherenkov photon wavelengths follows a distribution proportional to $1/\lambda^2$, so upon creation, each photon is assigned a wavelength randomly drawn from this distribution on a range from 250 nm to 695 nm.
 For each photon that strikes the detector, we must evaluate the quantum efficiency of the detector at the photon's wavelength, and randomly either register it as a hit or discard it based on this value.
 Because all optical processes included in this simulation are elastic, we do not expect any photon wavelength to change between the point of generation and the point of detection.
-We may therefore randomly discard Cherenkov photons immediately after they are generated, based on their wavelength and eventual probability of being detected, rather than simulating their paths further.
+We may, therefore, randomly discard Cherenkov photons immediately after they are generated, based on their wavelength and the eventual probability of being detected, rather than simulating their paths further.
 
 \begin{figure}[]
 \centering
 \resizebox{0.9\textwidth}{!}{\includegraphics{./figs/qEff.pdf}}
-\caption[Quantum Efficiency of H12700 PMT used by EMPHATIC.]{Quantum Efficiency of H12700 PMT used by EMPHATIC, adapted from \cite{H12700}.}
+\caption[Quantum efficiency of H12700 PMT used by EMPHATIC.]{Quantum Efficiency of H12700 PMT used by EMPHATIC, adapted from \cite{H12700}.}
 \label{fig:qEff} 
 \end{figure}
 
 Two examples of photon distribution arising from this simple simulation are shown in Figure \ref{fig:photonPdfs}. While this simulation well approximates the expected location of a particle's photon rings for a single layer of aerogel, it is missing a number of key effects that would allow it to actually be used to calculate a realistic photon distribution.
 
 \section{Optical Effects}
-Following this initial simulation, more sophisticated optical effects were added in. 
+Following this initial simulation, more sophisticated optical effects were added in. The second layer of aerogel was incorporated into the simulation, defined the same as the first layer of aerogel, but with an index of refraction of 1.045 and placed directly downstream of the first layer.
 
 \subsection{Rayleigh Scattering}
 The properties of each of the 2 cm thick layers of aerogel available to the EMPHATIC experiment were characterized by another member of the collaboration \cite{aerogelTabata}: their refractive indices were measured for light with a wavelength of 405 nm, and the transmittances of light were measured for light of wavelengths ranging from 190 nm to 800 nm.
@@ -66,7 +66,7 @@ The transmittance and refractive index of each aerogel are shown in Figure \ref{
   \label{fig:transmittance}
 \end{figure}
 
-As described in Section \ref{sec:optics}, the primary optical effect to account for is Rayleigh Scattering, wherein photons scatter with a probability proportional to $\lambda^{-4}$, and in a direction proportional to $1 + \cos^2(\theta)$.
+As described in Section \ref{sec:optics}, the primary optical effect to account for is Rayleigh scattering, wherein photons scatter with a probability proportional to $\lambda^{-4}$, and in a direction proportional to $1 + \cos^2(\theta)$.
 If we assume that the transmittance of light through the aerogels is only affected by Rayleigh scattering then we can approximate $L(\lambda)$, the Rayleigh scattering interaction length at each wavelength, with the following formula:
 
 \begin{equation}
@@ -75,7 +75,7 @@ L(\lambda) = \frac{-d}{\log(T(\lambda))}
 \end{equation}
 
 In this equation, $T(\lambda)$ is the transmittance of light at a wavelength $\lambda$ across some thickness $d$ of the aerogel.
-In order to efficiently sample a random distance before scattering, we can apply inverse transform sampling \TODO{Cite inverse transform sampling}.
+In order to efficiently sample a random distance before scattering, we can apply inverse transform sampling \cite{randomvar}.
 The probability $p$ that a photon has scattered after travelling some distance $x$ through the aerogel is given by
 
 \begin{equation}
@@ -92,8 +92,9 @@ x =   -L\ln(1-p)
 
 In the fast ARICH simulation, when each photon is generated, a random ``distance until scattering" is calculated this way. 
 We check whether or not a photon would still be in the aerogel volume after having travelled that distance: if it is, then we advance it forwards by that amount, and then assign the photon a new direction, where $\theta$ is sampled from the distribution $1 + \cos^2(\theta)$, and $\phi$ is randomly sampled from $[0, 2\pi]$.
+These $\theta$ and $\phi$ values are sampled with respect to the direction of travel of the particle, and then rotated into the lab frame.
 After the position and direction of the photon has been updated, a new ``distance until scattering" is calculated and this process is repeated. 
-If we determine that a photon would not be in the aerogel after having travelled that distance, then we advance the photon forwards until the boundary of the aerogel.
+If we determine that a photon would not be in the aerogel after having travelled that distance, then we advance the photon forwards only as far as the boundary of the aerogel.
 
 \subsection{Refraction}
 When photons travel between one medium to another medium with a different index of refraction, they undergo refraction, changing their direction.
@@ -128,7 +129,7 @@ Due to refraction, the positions at which the photon rings are detected are slig
 \section{Particle Identification Script}
 \label{sec:multi}
 Following the creation of the fast simulation, a script was written to conduct particle identification on given experimental data.
-The script takes in as input a 2-dimensional histogram of photon hits, the measured position, direction, and momentum of a the event, and generates corresponding simulated photon distributions using the fast ARICH simulation.
+The script takes in as input a 2-dimensional histogram of photon hits, the measured position, direction, and momentum of an event, and generates corresponding simulated photon distributions using the fast ARICH simulation.
 Using the technique described in Section \ref{sec:particleIdentification}, the script calculates the negative log-likelihood for each particle type, and outputs the most likely particle that generated the event.
 
 The full code implementing this particle identification approach and the fast ARICH simulation is described in more detail in Appendix \ref{ch:simCode}.
